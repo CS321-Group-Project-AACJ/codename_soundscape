@@ -3,3 +3,4 @@
 ## Contributers
 - Ahmad Graham
 - Adrian Joseph
+- Christopher Chay
