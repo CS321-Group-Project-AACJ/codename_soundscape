@@ -1,3 +1,7 @@
 # Codename SoundScape
 
-Jack Kelz
+## Contributers
+- Ahmad Graham
+- Adrian Joseph
+- Christopher Chay
+- Jack Kelz
