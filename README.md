@@ -28,6 +28,7 @@ A simple web app created using the MERN stack (MongoDB, Express.js, React, Node.
     -   their top 3 playlists (see more on their spotify playlist)
     -   their friends list
 -   SoundCloud/YouTube music integration
+- add songs to your playlists (without leving app)
 -   _**(encouraged to add more)**_
 
 ---

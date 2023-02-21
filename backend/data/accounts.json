@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Ahmad Graham",
+        "age": 20,
+        "username": "AGraham02",
+        "password": "Ahmad123"
+    },
+    {
+        "name": "John Doe",
+        "age": 99,
+        "username": "JDoe99",
+        "password": "John123"
+    },
+    {
+        "name": "Test Dummy",
+        "age": 1,
+        "username": "TDummy1",
+        "password": "Test123"
+    },
+    {
+        "name": "Admin Admin",
+        "age": 100,
+        "username": "AAdmin100",
+        "password": "Admin123"
+    }
+]
