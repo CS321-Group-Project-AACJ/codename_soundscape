@@ -1,9 +1,22 @@
+import axios from "axios";
 import CustomButton from "components/ui/CustomButton";
+import URL from "data/URL";
 import React, { useState } from "react";
 import "./Home.css";
 
 export default function Home() {
     const [tempText, setTempText] = useState("");
+    const [data, setData] = useState([]);
+
+    async function fetchData() {
+        try {
+            const result = await axios.get(`${URL}/test`);
+            console.log(result);
+            setData(result.data);
+        } catch (error) {
+            console.log("There was an error fetching data");
+        }
+    }
 
     return (
         <div className="home">
@@ -16,30 +29,49 @@ export default function Home() {
                 />
             </label>
             <p>{tempText}</p>
-            <CustomButton text="This is a custom button!" fitContent />
+            <div>
+                <CustomButton text="This is a custom button!" fitContent />
+                <CustomButton
+                    text="This is a custom button!"
+                    fitContent
+                    type="SECONDARY"
+                />
+                <CustomButton
+                    text="This is a custom button!"
+                    fitContent
+                    type="TERTIARY"
+                />
+                <CustomButton
+                    text="This is a custom button!"
+                    fitContent
+                    disabled
+                />
+                <CustomButton
+                    text="This is a custom button!"
+                    fitContent
+                    type="SECONDARY"
+                    disabled
+                />
+                <CustomButton
+                    text="This is a custom button!"
+                    fitContent
+                    type="TERTIARY"
+                    disabled
+                />
+            </div>
+            <p>
+                If the server is on, press the button below to request data from
+                it
+            </p>
             <CustomButton
-                text="This is a custom button!"
-                fitContent
-                type="SECONDARY"
+                text={"Request server data"}
+                handleFunction={fetchData}
             />
-            <CustomButton
-                text="This is a custom button!"
-                fitContent
-                type="TERTIARY"
-            />
-            <CustomButton text="This is a custom button!" fitContent disabled />
-            <CustomButton
-                text="This is a custom button!"
-                fitContent
-                type="SECONDARY"
-                disabled
-            />
-            <CustomButton
-                text="This is a custom button!"
-                fitContent
-                type="TERTIARY"
-                disabled
-            />
+            <div>
+                {data.map((item, i) => (
+                    <p key={i}>{item.name}</p>
+                ))}
+            </div>
         </div>
     );
 }

@@ -3,7 +3,7 @@ import "./CustomButton.css";
 
 export default function CustomButton({
     text,
-    handleFunction,
+    handleFunction = () => {},
     style,
     type = "PRIMARY",
     disabled = false,
@@ -11,7 +11,7 @@ export default function CustomButton({
 }) {
     function handleClick() {
         if (!disabled) {
-            // handleFunction();
+            handleFunction();
             alert("I was clicked!");
         }
     }
