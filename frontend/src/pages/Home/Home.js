@@ -7,12 +7,25 @@ import "./Home.css";
 export default function Home() {
     const [tempText, setTempText] = useState("");
     const [data, setData] = useState([]);
+    const [firstname, setFirstname] = useState("");
+
 
     async function fetchData() {
         try {
             const result = await axios.get(`${URL}/test`);
             console.log(result);
             setData(result.data);
+        } catch (error) {
+            console.log("There was an error fetching data");
+        }
+    }
+
+    async function postData() {
+        try {
+            const result = await axios.post(`${URL}/accounts/test`, {
+                firstname: firstname,
+            });
+            console.log(result);
         } catch (error) {
             console.log("There was an error fetching data");
         }
@@ -72,6 +85,17 @@ export default function Home() {
                     <p key={i}>{item.name}</p>
                 ))}
             </div>
+            <label>
+                Try inputting your name here!
+                <input
+                    type="text"
+                    onChange={(e) => setFirstname(e.target.value)}
+                />
+            </label>
+            <CustomButton
+                text={"Post data to server"}
+                handleFunction={postData}
+            />
         </div>
     );
 }
