@@ -39,9 +39,9 @@ export default function CustomButton({
         },
     };
     style = {
-        ...style,
         ...styles[`container_${type}`],
         ...styles[`text_${type}`],
+        ...style,
     };
 
     let disabledStyle = { cursor: "default" };
