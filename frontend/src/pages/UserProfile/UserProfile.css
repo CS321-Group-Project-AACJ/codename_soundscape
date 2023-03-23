@@ -1,0 +1,203 @@
+.user-profile {
+    flex-grow: 1;
+}
+
+.user-header {
+    /* border: solid red; */
+    display: flex;
+    justify-content: center;
+    /* flex-grow: 1; */
+}
+
+.user-profile .user-img {
+    /* border: solid red; */
+    height: 175px;
+    width: 175px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 10%;
+}
+
+.user-profile .user-img img {
+    width: 100%;
+    height: auto;
+}
+
+.user-profile .user-header .info {
+    /* border: solid blue; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    /* flex-grow: 0.5; */
+    min-width: 40%;
+}
+
+.user-profile .user-header .info > * {
+    margin: 5px 0;
+}
+
+.user-profile .user-header .username {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.user-profile .user-header .follow-info {
+    display: flex;
+    /* border: solid red; */
+    justify-content: space-evenly;
+    font-size: 1.2rem;
+}
+
+.user-profile .user-header .follow-info > * {
+    margin: 0 10px;
+}
+
+.user-profile .user-header .interactables {
+    display: flex;
+    align-items: center;
+    /* border: solid green; */
+    justify-content: space-evenly;
+}
+
+.spotify-profile-btn {
+    /* border: solid red; */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.spotify-profile-btn img {
+    width: 100%;
+    height: auto;
+}
+
+.user-profile .main-content {
+    margin: 20px;
+}
+
+.user-profile .main-content section {
+    margin: 25px 0;
+}
+
+.user-profile .main-content section > * {
+    /* border: solid blue; */
+    margin: 5px 0;
+}
+
+.genres-wrapper {
+    /* overflow-x: scroll; */
+    /* border: solid red; */
+    /* height:; */
+    /* white-space: nowrap; */
+    /* overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap; */
+    overflow-x: auto;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.genres-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.genres-content {
+    /* border: solid black; */
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.genre-container {
+    border: solid black;
+    border-radius: 25px;
+    padding: 2px 15px;
+    display: inline-block;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+.playlist-container {
+    /* border: solid black; */
+    display: inline-flex;
+    flex-direction: column;
+    margin-right: 20px;
+    /* border-radius: 5px; */
+    overflow: hidden;
+}
+
+.playlist-container .img-container {
+    /* border: solid red; */
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    /* margin: 10px; */
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.playlist-container img {
+    width: auto;
+    height: 100%;
+}
+
+.playlist-container p {
+    margin: 3px 0;
+}
+
+.history-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px 20px;
+    /* margin: 10px 20px; */
+    min-width: 0;
+    /* border: solid red; */
+}
+
+.history-container > * {
+    min-width: 0px;
+}
+
+.song-container {
+    /* border: solid red; */
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    border-radius: 5px;
+    /* overflow: hidden; */
+    background-color: #e8e8e8;
+}
+
+.song-container .img-container {
+    width: 75px;
+    height: 75px;
+    border-radius: 5px;
+    /* border: solid red; */
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.song-container .img-container img {
+    width: auto;
+    height: 100%;
+}
+
+.song-container .song-info {
+    /* width: min-content; */
+    /* flex-grow: 1; */
+    padding: 1rem;
+    overflow: hidden;
+}
+
+.song-container .song-info p {
+    /* width: min-content;
+    flex-grow: 1;
+    padding: 1rem; */
+    /* width: min-content; */
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

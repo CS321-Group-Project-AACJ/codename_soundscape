@@ -1,0 +1,30 @@
+.login-container {
+    width: 100%;
+    height: 100vh;
+    /* border: solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container .title {
+    /* text-align: center; */
+    /* border: solid red; */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1.7rem;
+}
+
+.login-container .interactables {
+    /* border: solid blue; */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}

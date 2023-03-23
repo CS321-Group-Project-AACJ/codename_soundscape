@@ -1,0 +1,16 @@
+nav {
+    /* border: solid red; */
+    padding: 3%;
+    margin: 20px;
+    /* margin-top: 0; */
+    background-color: #e8e8e8;
+    border-radius: 10px;
+}
+
+nav > * {
+    /* border: solid red; */
+    padding: 3%;
+    margin: 10px 5px;
+    text-align: center;
+    font-size: 1.4rem;
+}

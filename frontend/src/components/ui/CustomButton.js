@@ -75,7 +75,7 @@ export default function CustomButton({
         margin: "10px auto",
     };
     if (fitContent) {
-        style = { ...style, ...fitContentStyle };
+        style = { ...fitContentStyle, ...style };
     }
 
     return (

@@ -1,24 +1,22 @@
+import Footer from "components/sections/Footer";
+import Nav from "components/sections/Nav";
+import PageHeader from "components/sections/PageHeader";
 import Home from "pages/Home/Home";
+import Login from "pages/Login/Login";
+import UserProfile from "pages/UserProfile/UserProfile";
 import "./App.css";
 
 function App() {
     return (
-        // <div className="App">
-        //     <header className="App-header">
-        //         <p>
-        //             Edit <code>src/App.js</code> and save to reload.
-        //         </p>
-        //         <a
-        //             className="App-link"
-        //             href="https://reactjs.org"
-        //             target="_blank"
-        //             rel="noopener noreferrer"
-        //         >
-        //             Learn React
-        //         </a>
-        //     </header>
-        // </div>
-        <Home />
+        // <Home />
+
+        // <Login />
+
+        <div className="app">
+            <Nav />
+            <PageHeader />
+            <UserProfile />
+        </div>
     );
 }
 
