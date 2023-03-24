@@ -5,9 +5,13 @@ nav {
     /* margin-top: 0; */
     background-color: #e8e8e8;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
 }
 
-nav > * {
+nav div > * {
     /* border: solid red; */
     padding: 3%;
     margin: 10px 5px;
