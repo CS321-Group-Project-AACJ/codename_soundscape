@@ -4,7 +4,7 @@ import URL from "data/URL";
 import React, { useState } from "react";
 import "./Home.css";
 
-//my name is Ahmad Graham
+//my name is Ahmad Graham (no its not)
 
 export default function Home() {
     const [tempText, setTempText] = useState("");
