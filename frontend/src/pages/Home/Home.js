@@ -4,6 +4,8 @@ import URL from "data/URL";
 import React, { useState } from "react";
 import "./Home.css";
 
+//my name is Ahmad Graham
+
 export default function Home() {
     const [tempText, setTempText] = useState("");
     const [data, setData] = useState([]);
