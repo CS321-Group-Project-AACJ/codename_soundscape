@@ -2,11 +2,9 @@ import axios from "axios";
 import CustomButton from "components/ui/CustomButton";
 import URL from "data/URL";
 import React, { useState } from "react";
-import "./Home.css";
+import "./DemoScreen.css";
 
-//my name is Ahmad Graham (no its not)
-
-export default function Home() {
+export default function DemoScreen() {
     const [tempText, setTempText] = useState("");
     const [data, setData] = useState([]);
     const [firstname, setFirstname] = useState("");
@@ -34,8 +32,8 @@ export default function Home() {
     }
 
     return (
-        <div className="home">
-            Home Page
+        <div className="demo">
+            Demo Page
             <label>
                 Try inputting text here!
                 <input

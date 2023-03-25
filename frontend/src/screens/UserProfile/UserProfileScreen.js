@@ -1,5 +1,5 @@
 import React from "react";
-import "./UserProfile.css";
+import "./UserProfileScreen.css";
 import CustomButton from "components/ui/CustomButton";
 import PageHeader from "components/sections/PageHeader";
 
@@ -17,7 +17,7 @@ import September from "../../assets/images/Album-cover-September.jpeg";
 import NoIdea from "../../assets/images/Album-cover-NoIdea.jpeg";
 import Vibe from "../../assets/images/Album-cover-Vibe.jpeg";
 
-export default function UserProfile({ myProfile }) {
+export default function UserProfileScreen({ myProfile }) {
     const genres = [
         "Pop",
         "Rock",

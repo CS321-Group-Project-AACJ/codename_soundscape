@@ -1,21 +1,23 @@
 import Footer from "components/sections/Footer";
 import Nav from "components/sections/Nav";
 import PageHeader from "components/sections/PageHeader";
-import Home from "pages/Home/Home";
-import Login from "pages/Login/Login";
-import UserProfile from "pages/UserProfile/UserProfile";
+import DemoScreen from "screens/Demo/DemoScreen";
+import LoginScreen from "screens/Login/LoginScreen";
+// import LoginScreen from "screens/LoginScreen/LoginScreen";
+import UserProfileScreen from "screens/UserProfile/UserProfileScreen";
 import "./App.css";
 
 function App() {
     return (
-        // <Home />
+        // <DemoScreen />
 
-        // <Login />
+        // <LoginScreen />
 
         <div className="app">
             <Nav />
             <PageHeader />
-            <UserProfile />
+
+            <UserProfileScreen />
         </div>
     );
 }
