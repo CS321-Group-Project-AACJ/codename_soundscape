@@ -25,9 +25,8 @@ export default function DetailsScreen() {
                 </div>
                 <div className="info">
                     <div className="song-name">September</div>
-                    <div className="follow-info">
-                        <div className="followers">1:13 - track length</div>
-
+                    <div className="song-data">
+                        <div className="data">1:13 - track length</div>
                     </div>
                     <div className="interactables">
                         <CustomButton
@@ -53,6 +52,7 @@ export default function DetailsScreen() {
             <div className="main-content"
                 class="row">
                     <h3>Appears On:</h3>
+                    
                     <div class="column">
                         <Album
                             name="The Best of Earth, Wind & Fire, Vol. 1"
