@@ -11,14 +11,14 @@ function App() {
     return (
         // <DemoScreen />
 
-        // <LoginScreen />
+        <LoginScreen />
 
-        <div className="app">
-            <Nav />
-            <PageHeader />
+        // <div className="app">
+        //     <Nav />
+        //     <PageHeader />
 
-            <UserProfileScreen />
-        </div>
+        //     <UserProfileScreen />
+        // </div>
     );
 }
 

@@ -12,7 +12,7 @@ export default function CustomButton({
     function handleClick() {
         if (!disabled) {
             handleFunction();
-            alert("I was clicked!");
+            console.log("I was clicked!");
         }
     }
 
