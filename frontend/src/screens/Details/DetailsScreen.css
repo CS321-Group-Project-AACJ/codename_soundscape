@@ -1,6 +1,18 @@
-.demo {
-    color: red;
+.column {
+    float: left;
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.song-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    padding: 10px 25px;
+    margin: 10px;
+    margin-right: 100px
 }
