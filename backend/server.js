@@ -14,8 +14,10 @@ app.use(bodyParser.json());
 
 //Routes
 const accountRouter = require("./routes/accountRouter.js");
-const SpotifyWebApi = require("spotify-web-api-node");
 app.use("/accounts", accountRouter);
+
+const authenticationRouter = require("./routes/authenticationRouter.js");
+app.use("/auth", authenticationRouter);
 
 app.get("/", (req, res) => {
     res.send("Hello World with Ahmad!");
@@ -41,7 +43,7 @@ app.get("/test/error", (req, res) => {
 // Error handling
 app.use((err, req, res, next) => {
     console.log(err);
-    res.status(err.status || 500).send({
+    res.status(err.status || 500).json({
         error: err.message || "There was an error on our end",
     });
 });
