@@ -9,6 +9,103 @@
     clear: both;
 }
 
+.song-details {
+    flex-grow: 1;
+}
+
+.song-header {
+    /* border: solid red; */
+    display: flex;
+    justify-content: center;
+    /* flex-grow: 1; */
+}
+
+/*.song-details .song-img {
+    // border: solid red; 
+    height: 175px;
+    width: 175px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 10%;
+}
+
+.song-details .song-img img {
+    width: 100%;
+    height: auto;
+}*/
+
+.song-details .song-header .info {
+    /* border: solid blue; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    /* flex-grow: 0.5; */
+    min-width: 40%;
+}
+
+.song-details .song-header .info > * {
+    margin: 5px 0;
+}
+
+.song-details .song-header .song-name {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.song-details .song-header .follow-info {
+    display: flex;
+    /* border: solid red; */
+    justify-content: space-evenly;
+    font-size: 1.2rem;
+}
+
+.song-details .song-header .follow-info > * {
+    margin: 0 10px;
+}
+
+.song-details .song-header .interactables {
+    display: flex;
+    align-items: center;
+    /* border: solid green; */
+    justify-content: space-evenly;
+}
+
+.spotify-profile-btn {
+    /* border: solid red; */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.spotify-profile-btn img {
+    width: 100%;
+    height: auto;
+}
+
+.song-details .main-content {
+    margin: 20px;
+}
+
+.song-details .main-content section {
+    margin: 25px 0;
+}
+
+.song-details .main-content section > * {
+    /* border: solid blue; */
+    margin: 5px 0;
+}
+
+.interactables{
+    padding-left: 30px;
+    height: 50px;
+}
+
+.spotifyconnect {
+    padding-left: 80px;
+}
+
 .song-container {
     display: flex;
     align-items: center;

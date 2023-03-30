@@ -1,5 +1,6 @@
 import React from "react";
 import "./CustomButton.css";
+import star from "../../assets/images/star.png";
 
 export default function CustomButton({
     text,
@@ -8,6 +9,7 @@ export default function CustomButton({
     type = "PRIMARY",
     disabled = false,
     fitContent = false,
+    isStar = false,
 }) {
     function handleClick() {
         if (!disabled) {
@@ -77,6 +79,18 @@ export default function CustomButton({
     if (fitContent) {
         style = { ...fitContentStyle, ...style };
     }
+    
+    if(isStar){
+        return (
+            <div className="custom-btn" style={style} onClick={handleClick}>
+                <img src={star} 
+                        width="40" 
+                        height="40"
+                    />
+            </div>
+        );
+    }
+
 
     return (
         <div className="custom-btn" style={style} onClick={handleClick}>

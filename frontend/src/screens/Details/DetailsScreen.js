@@ -3,42 +3,20 @@ import "./DetailsScreen.css";
 import CustomButton from "components/ui/CustomButton";
 import PageHeader from "components/sections/PageHeader";
 
-import pfp from "../../assets/images/profile_pic.png";
 import spotifyLogo from "../../assets/images/spotify_logo.png";
 
 import playlistCover1 from "../../assets/images/playlist-cover1.png";
-import playlistCover2 from "../../assets/images/playlist-cover2.png";
-import playlistCover3 from "../../assets/images/playlist-cover3.png";
 
-import Real from "../../assets/images/Album-cover-Real.jpeg";
-import Toast from "../../assets/images/Album-cover-Toast.jpeg";
-import Drake from "../../assets/images/Album-cover-Drake.jpeg";
 import September from "../../assets/images/Song-cover-September.jpg";
-import NoIdea from "../../assets/images/Album-cover-NoIdea.jpeg";
-import Vibe from "../../assets/images/Album-cover-Vibe.jpeg";
 
 import bestOfEWF from "../../assets/images/Album-cover-September.jpeg";
 
 export default function DetailsScreen() {
-    
-    const genres = [
-        "Pop",
-        "Rock",
-        "Hip Hop",
-        "Latin",
-        "Dance",
-        "R&B",
-        "Country",
-        "Metal",
-        "Jazz",
-        "Classical",
-        "Extra one Idk"
-    ];
 
     return (
-        <main className="user-profile">
+        <main className="song-details">
             {/* <PageHeader /> */}
-            <div className="user-header">
+            <div className="song-header">
                 <div className="song-img">
                     <img src={September} 
                         width="250" 
@@ -46,14 +24,15 @@ export default function DetailsScreen() {
                     />
                 </div>
                 <div className="info">
-                    <div className="username">September</div>
+                    <div className="song-name">September</div>
                     <div className="follow-info">
                         <div className="followers">1:13 - track length</div>
 
                     </div>
                     <div className="interactables">
                         <CustomButton
-                            text="★"
+                            isStar={true}
+                            type = "TERTIARY"
                         /> 
                         <CustomButton
                             text="Add To Playlist"
@@ -84,7 +63,7 @@ export default function DetailsScreen() {
                     <h3>Artists</h3>
                     <div className="history-container"
                         class="column">
-                        <SongCard
+                        <ArtistCard
                             artists={["Earth, Wind & Fire"]}
                             img={September}
                             style={{flex:5}}
@@ -106,7 +85,7 @@ function Album({ name, img }) {
     );
 }
 
-function SongCard({artists, img }) {
+function ArtistCard({artists, img }) {
     function ArtistsToString() {
         let artistsString = artists[0];
         if (artists.length > 1) {
