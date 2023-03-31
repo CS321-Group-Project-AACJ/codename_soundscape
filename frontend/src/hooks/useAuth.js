@@ -21,6 +21,14 @@ export default function useAuth(code) {
             setRefreshToken(response.data.refreshToken);
             setExpiresIn(response.data.expiresIn);
             // setExpiresIn(61);
+
+            const registerResponse = await axios.post(
+                "http://localhost:3001/accounts/register",
+                {
+                    accessToken: response.data.accessToken,
+                }
+            );
+            console.log(registerResponse);
         } catch (error) {
             window.location = "/";
         }

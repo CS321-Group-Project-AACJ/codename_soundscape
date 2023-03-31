@@ -11,7 +11,7 @@ const locationSchema = new Schema({
             default: "Point",
             required: true,
         },
-        coordinates: [{ type: Number, required: true }],
+        coordinates: [{ type: Number, required: true, min: -180, max: 180 }],
     },
 });
 
