@@ -18,3 +18,12 @@ nav div > * {
     text-align: center;
     font-size: 1.4rem;
 }
+
+nav .nav-link {
+    /* border: solid red; */
+    text-decoration: none;
+}
+
+nav .nav-link.active{
+    border: solid black;
+}
