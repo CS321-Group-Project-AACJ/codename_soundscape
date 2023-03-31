@@ -8,6 +8,7 @@ import LoginScreen from "screens/Login/LoginScreen";
 import UserProfileScreen from "screens/UserProfile/UserProfileScreen";
 import "./App.css";
 import SettingsScreen from "screens/Settings/SettingsScreen";
+import useGeoLocation from "hooks/useGeoLocation";
 
 const code = new URLSearchParams(window.location.search).get("code");
 
@@ -27,6 +28,12 @@ function AppComponent({ code }) {
     console.log(code);
     const accessToken = useAuth(code);
     // console.log(accessToken);
+
+    const location = useGeoLocation();
+    if (location) {
+        console.log(location.coordinates.lat);
+        console.log(location.coordinates.lng);
+    }
 
     return (
         <div className="app">
