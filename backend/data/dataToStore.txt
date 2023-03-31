@@ -1,0 +1,18 @@
+Account:
+- spotify user account
+- location (in coordinates)
+- created at
+
+searches
+- previous searches
+
+account settings
+- show currently playing
+- show recently played
+- show top tracks
+- show top artists
+- show top albums
+- show top genres
+- private account
+- location
+- theme

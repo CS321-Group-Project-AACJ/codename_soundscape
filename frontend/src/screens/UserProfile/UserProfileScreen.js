@@ -42,7 +42,8 @@ export default function UserProfileScreen({ myProfile, accessToken }) {
 
     async function getMyData() {
         try {
-            const response = await spotifyApi.getMe();
+            // const response = await spotifyApi.getMe();
+            const response = await spotifyApi.getUser("its_dannyj");
             console.log(response.body);
             setUserData(response.body);
         } catch (error) {
