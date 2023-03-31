@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./UserProfileScreen.css";
 import CustomButton from "components/ui/CustomButton";
 import PageHeader from "components/sections/PageHeader";
+import SpotifyWebApi from "spotify-web-api-node";
+import useAuth from "hooks/useAuth";
 
 import pfp from "../../assets/images/profile_pic.png";
 import spotifyLogo from "../../assets/images/spotify_logo.png";
@@ -17,7 +19,11 @@ import September from "../../assets/images/Album-cover-September.jpeg";
 import NoIdea from "../../assets/images/Album-cover-NoIdea.jpeg";
 import Vibe from "../../assets/images/Album-cover-Vibe.jpeg";
 
-export default function UserProfileScreen({ myProfile }) {
+const spotifyApi = new SpotifyWebApi({
+    clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
+});
+
+export default function UserProfileScreen({ myProfile, accessToken }) {
     const genres = [
         "Pop",
         "Rock",
@@ -29,8 +35,30 @@ export default function UserProfileScreen({ myProfile }) {
         "Metal",
         "Jazz",
         "Classical",
-        "Extra one Idk"
+        "Extra one Idk",
     ];
+    // const accessToken = useAuth(code);
+    const [userData, setUserData] = useState({});
+
+    async function getMyData() {
+        try {
+            const response = await spotifyApi.getMe();
+            console.log(response.body);
+            setUserData(response.body);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        if (!accessToken) return;
+        spotifyApi.setAccessToken(accessToken);
+    }, [accessToken]);
+
+    useEffect(() => {
+        if (!accessToken) return;
+        getMyData();
+    }, [accessToken]);
 
     return (
         <main className="user-profile">

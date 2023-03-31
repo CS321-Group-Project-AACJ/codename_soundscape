@@ -33,7 +33,7 @@ function AppComponent({ code }) {
             <Nav />
             <PageHeader />
 
-            <UserProfileScreen />
+            <UserProfileScreen accessToken={accessToken} />
         </div>
     );
 }
