@@ -16,6 +16,15 @@ app.use(bodyParser.json());
 
 //Database setup
 mongoose.connect(connectionString);
+const database = mongoose.connection;
+
+database.on("error", (error) => {
+    console.log(error);
+});
+
+database.once("connected", () => {
+    console.log("Database connected");
+});
 
 //Routes
 const accountRouter = require("./routes/accountRouter.js");
