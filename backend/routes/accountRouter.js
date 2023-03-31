@@ -1,7 +1,8 @@
 const express = require("express");
 const accounts = require("../data/accounts.json");
 // const db = require("../db/database.js");
-const {Account, Location} = require("../db/model/accountModel.js");
+const { Account, Location } = require("../db/model/accountModel.js");
+const SpotifyWebApi = require("spotify-web-api-node");
 
 const router = express.Router();
 
@@ -9,22 +10,62 @@ router.get("/", (req, res) => {
     res.json(accounts);
 });
 
+router.post("/register", async (req, res) => {
+    const spotifyApi = new SpotifyWebApi({
+        redirectUri: "http://localhost:3000",
+        clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
+        clientSecret: "8365399e3ef94b52bde4654b5d003dc4",
+    });
+    const { accessToken } = req.body;
+    console.log(accessToken);
+    if (!accessToken) {
+        console.log("handle error here");
+    }
+    spotifyApi.setAccessToken(accessToken);
+
+    const response = await spotifyApi.getMe();
+    const userData = response.body;
+    console.log(userData);
+
+    const existingAccount = await Account.exists({ spotifyId: userData.id });
+    if (existingAccount) {
+        res.json("An account has already been made for you. We did nothing.");
+        return;
+    }
+
+    const longitude = -118.25413963773347;
+    const latitude = 33.913758675109705;
+    const newLocation = await Location({
+        name: "Default",
+        location: { coordinates: [longitude, latitude] },
+    });
+    const newAccount = await Account.create({
+        spotifyId: userData.id,
+        location: newLocation,
+    });
+    res.json(newAccount);
+});
+
 router.get("/db", async (req, res) => {
+    // {"location.location": {$near: {$maxDistance: 260000, $geometry: {type: "Point", coordinates: [6, 9]}}}}
     const name = "Jordan";
     // const newAccount = new Account({
     //     spotifyId: "its_dannyj"
     // });
     // await newAccount.save();
-    const longitude = 6;
-    const latitude = 9;
-    const newLocation = await Location.create({
-        name: "Home",
-        location: {coordinates: [longitude, latitude]}
+
+    const longitude = -118.25413963773347;
+    const latitude = 33.913758675109705;
+    const newLocation = await Location({
+        name: "LA",
+        location: { coordinates: [longitude, latitude] },
     });
+    const existingAccount = await Account.exists({ spotifyId: name });
     const newAccount = await Account.create({
-        spotifyId: "its_dannyj",
-        location: newLocation._id,
+        spotifyId: "LA",
+        location: newLocation,
     });
+    
     // newAccount.findOne({location: {$geoWithin}})
     /*spotifyId: String,
     location: String,
