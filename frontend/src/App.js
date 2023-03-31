@@ -4,7 +4,6 @@ import PageHeader from "components/sections/PageHeader";
 import useAuth from "hooks/useAuth";
 import DemoScreen from "screens/Demo/DemoScreen";
 import LoginScreen from "screens/Login/LoginScreen";
-// import LoginScreen from "screens/LoginScreen/LoginScreen";
 import UserProfileScreen from "screens/UserProfile/UserProfileScreen";
 import "./App.css";
 
