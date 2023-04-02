@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {setLocation} from "../features/appConfig/appConfigSlice";
 
 export default function useGeoLocation() {
-    const [location, setLocation] = useState({
-        loaded: false,
-        coordinates: { lat: 0, lng: 0 },
-    });
+    const dispatch = useDispatch();
 
     function onSuccess(location) {
         const latitude = location.coords.latitude;
         const longitude = location.coords.longitude;
-        setLocation({
+        const newLocation = {
             loaded: true,
             coordinates: {
                 lat: latitude,
                 lng: longitude,
             },
-        });
+        };
+        dispatch(setLocation(newLocation));
     }
 
     function onError(error) {
-        setLocation({
+        const newLocation = {
             loaded: true,
             error,
-        });
+        };
+        dispatch(setLocation(newLocation));
     }
 
     useEffect(() => {
@@ -35,5 +36,4 @@ export default function useGeoLocation() {
 
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }, []);
-    return;
 }
