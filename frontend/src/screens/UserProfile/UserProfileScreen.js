@@ -3,7 +3,6 @@ import "./UserProfileScreen.css";
 import CustomButton from "components/ui/CustomButton";
 import PageHeader from "components/sections/PageHeader";
 import SpotifyWebApi from "spotify-web-api-node";
-import useAuth from "hooks/useAuth";
 
 import pfp from "../../assets/images/profile_pic.png";
 import spotifyLogo from "../../assets/images/spotify_logo.png";
@@ -37,7 +36,6 @@ export default function UserProfileScreen({ myProfile, accessToken }) {
         "Classical",
         "Extra one Idk",
     ];
-    // const accessToken = useAuth(code);
     const [userData, setUserData] = useState({});
 
     async function getMyData() {
