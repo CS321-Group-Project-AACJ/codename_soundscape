@@ -17,12 +17,13 @@ import Drake from "../../assets/images/Album-cover-Drake.jpeg";
 import September from "../../assets/images/Album-cover-September.jpeg";
 import NoIdea from "../../assets/images/Album-cover-NoIdea.jpeg";
 import Vibe from "../../assets/images/Album-cover-Vibe.jpeg";
+import { useSelector } from "react-redux";
 
 const spotifyApi = new SpotifyWebApi({
     clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
 });
 
-export default function UserProfileScreen({ myProfile, accessToken }) {
+export default function UserProfileScreen({ myProfile, }) {
     const genres = [
         "Pop",
         "Rock",
@@ -37,6 +38,7 @@ export default function UserProfileScreen({ myProfile, accessToken }) {
         "Extra one Idk",
     ];
     const [userData, setUserData] = useState({});
+    const accessToken = useSelector((state) => state.appConfig.tokens.accessToken);
 
     async function getMyData() {
         try {
@@ -52,10 +54,6 @@ export default function UserProfileScreen({ myProfile, accessToken }) {
     useEffect(() => {
         if (!accessToken) return;
         spotifyApi.setAccessToken(accessToken);
-    }, [accessToken]);
-
-    useEffect(() => {
-        if (!accessToken) return;
         getMyData();
     }, [accessToken]);
 

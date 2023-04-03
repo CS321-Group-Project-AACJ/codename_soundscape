@@ -17,7 +17,7 @@ router.post("/register", async (req, res) => {
         clientSecret: "8365399e3ef94b52bde4654b5d003dc4",
     });
     const { accessToken } = req.body;
-    console.log(accessToken);
+    // console.log(accessToken);
     if (!accessToken) {
         console.log("handle error here");
     }
@@ -25,16 +25,16 @@ router.post("/register", async (req, res) => {
 
     const response = await spotifyApi.getMe();
     const userData = response.body;
-    console.log(userData);
+    // console.log(userData);
 
     const existingAccount = await Account.exists({ spotifyId: userData.id });
     if (existingAccount) {
         res.json("An account has already been made for you. We did nothing.");
         return;
     }
+    const { longitude, latitude } = req.body;
+    console.log(longitude);
 
-    const longitude = -118.25413963773347;
-    const latitude = 33.913758675109705;
     const newLocation = await Location({
         name: "Default",
         location: { coordinates: [longitude, latitude] },
@@ -47,7 +47,20 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/db", async (req, res) => {
-    // {"location.location": {$near: {$maxDistance: 260000, $geometry: {type: "Point", coordinates: [6, 9]}}}}
+    // {"location.location": {$near: {$maxDistance: 260000, $geometry: {type: "Point", coordinates: [lng, lat]}}}}
+    let locationQuery = {
+        $and: [
+            {
+                "location.location": {
+                    $near: {
+                        $maxDistance: 260000,
+                        $geometry: { type: "Point", coordinates: [-77, 38] },
+                    },
+                },
+            },
+            { spotifyId: { $ne: "its_dannyj" } },
+        ],
+    };
     const name = "Jordan";
     // const newAccount = new Account({
     //     spotifyId: "its_dannyj"
@@ -65,7 +78,7 @@ router.get("/db", async (req, res) => {
         spotifyId: "LA",
         location: newLocation,
     });
-    
+
     // newAccount.findOne({location: {$geoWithin}})
     /*spotifyId: String,
     location: String,

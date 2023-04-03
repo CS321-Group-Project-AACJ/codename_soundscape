@@ -25,15 +25,8 @@ function App() {
 }
 
 function AppComponent({ code }) {
-    console.log(code);
-    const accessToken = useAuth(code);
-    // console.log(accessToken);
-
-    const location = useGeoLocation();
-    if (location) {
-        console.log(location.coordinates.lat);
-        console.log(location.coordinates.lng);
-    }
+    useGeoLocation();
+    useAuth(code);
 
     return (
         <div className="app">
@@ -42,7 +35,7 @@ function AppComponent({ code }) {
             <PageHeader />
 
             <Routes>
-                <Route path="/profile" element={<UserProfileScreen accessToken={accessToken} />} />
+                <Route path="/profile" element={<UserProfileScreen />} />
                 <Route path="demo" element={<DemoScreen />} />
                 <Route path="/settings" element={<SettingsScreen />} />
             </Routes>
