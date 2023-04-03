@@ -8,6 +8,7 @@ import LoginScreen from "screens/Login/LoginScreen";
 import UserProfileScreen from "screens/UserProfile/UserProfileScreen";
 import "./App.css";
 import SettingsScreen from "screens/Settings/SettingsScreen";
+import useGeoLocation from "hooks/useGeoLocation";
 
 const code = new URLSearchParams(window.location.search).get("code");
 
@@ -24,9 +25,8 @@ function App() {
 }
 
 function AppComponent({ code }) {
-    console.log(code);
-    const accessToken = useAuth(code);
-    // console.log(accessToken);
+    useGeoLocation();
+    useAuth(code);
 
     return (
         <div className="app">
@@ -35,7 +35,7 @@ function AppComponent({ code }) {
             <PageHeader />
 
             <Routes>
-                <Route path="/profile" element={<UserProfileScreen accessToken={accessToken} />} />
+                <Route path="/profile" element={<UserProfileScreen />} />
                 <Route path="demo" element={<DemoScreen />} />
                 <Route path="/settings" element={<SettingsScreen />} />
             </Routes>

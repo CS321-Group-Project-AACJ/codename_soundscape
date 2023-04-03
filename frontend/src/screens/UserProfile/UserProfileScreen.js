@@ -3,7 +3,6 @@ import "./UserProfileScreen.css";
 import CustomButton from "components/ui/CustomButton";
 import PageHeader from "components/sections/PageHeader";
 import SpotifyWebApi from "spotify-web-api-node";
-import useAuth from "hooks/useAuth";
 
 import pfp from "../../assets/images/profile_pic.png";
 import spotifyLogo from "../../assets/images/spotify_logo.png";
@@ -18,12 +17,13 @@ import Drake from "../../assets/images/Album-cover-Drake.jpeg";
 import September from "../../assets/images/Album-cover-September.jpeg";
 import NoIdea from "../../assets/images/Album-cover-NoIdea.jpeg";
 import Vibe from "../../assets/images/Album-cover-Vibe.jpeg";
+import { useSelector } from "react-redux";
 
 const spotifyApi = new SpotifyWebApi({
     clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
 });
 
-export default function UserProfileScreen({ myProfile, accessToken }) {
+export default function UserProfileScreen({ myProfile, }) {
     const genres = [
         "Pop",
         "Rock",
@@ -37,8 +37,8 @@ export default function UserProfileScreen({ myProfile, accessToken }) {
         "Classical",
         "Extra one Idk",
     ];
-    // const accessToken = useAuth(code);
     const [userData, setUserData] = useState({});
+    const accessToken = useSelector((state) => state.appConfig.tokens.accessToken);
 
     async function getMyData() {
         try {
@@ -54,10 +54,6 @@ export default function UserProfileScreen({ myProfile, accessToken }) {
     useEffect(() => {
         if (!accessToken) return;
         spotifyApi.setAccessToken(accessToken);
-    }, [accessToken]);
-
-    useEffect(() => {
-        if (!accessToken) return;
         getMyData();
     }, [accessToken]);
 
