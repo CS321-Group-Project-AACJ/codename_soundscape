@@ -1,0 +1,101 @@
+.user-card {
+	position: relative;
+	display: flex;
+	margin-bottom: 50px;
+	left: 1050px;
+	background-color: grey;
+	border-radius: 10px;
+	width: 1000px;
+	height: 200px;
+}
+
+.user-card-image {
+	margin-top: 15px;
+	margin-left: 15px;
+	margin-right: 0px;
+}
+
+.song-image {
+	margin-top: 25px;
+	margin-left: 0px;
+	margin-right: 25px;
+}
+
+.user-card-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.user-card-name {
+	margin-top: -10px;
+	margin-left: -25px;
+	margin-bottom: -35px;
+	padding-top: 40px;
+}
+
+.user-card-title {
+	font-size: 24px;
+	margin-top: 25px;
+	margin-bottom: 5px;
+	margin-left: 150px;
+}
+
+.user-card-artist {
+	margin: 0;
+	margin-left: 150px;
+}
+
+.circle-img {
+	width: 50px;
+	height: 50px;
+	object-fit: "cover"; 
+	margin-left: 0px;
+	border-radius: 50%;
+}
+
+.rounded-img {
+	width: 100px;
+	height: 100px;
+	margin-top: 60px;
+	margin-left: -75px;
+	object-fit: "cover"; 
+	border-radius: 10px;
+}
+
+.button-profile {
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+	/*border: 1px solid #ccc;*/
+	text-decoration: none;
+	margin-left: 25px;
+	margin-right: 0px;
+	padding-left: 0px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.button-song {
+	width: 1000px;
+	height: 125px;
+	display: inline-block;
+	border-top: 1px solid black;
+	text-decoration: none;
+	margin-left: -142px;
+	margin-top: 60px;
+	margin-right: 0px;
+	padding-left: 0px;
+	color: white;
+	border-radius:0px;
+	cursor: pointer;
+}
+
+.arrow-img {
+	width: 50px;
+	height: 50px;
+	opacity: 0.5;
+	object-fit: "cover";
+	margin-left: 900px;
+	margin-top: -40px;
+}

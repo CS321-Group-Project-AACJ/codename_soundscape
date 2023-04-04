@@ -38,6 +38,7 @@ function AppComponent({ code }) {
                 <Route path="/profile" element={<UserProfileScreen accessToken={accessToken} />} />
                 <Route path="demo" element={<DemoScreen />} />
                 <Route path="/settings" element={<SettingsScreen />} />
+                <Route path="/home" element={<SettingsScreen />} />
             </Routes>
         </div>
     );
