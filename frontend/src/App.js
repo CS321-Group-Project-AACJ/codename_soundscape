@@ -39,11 +39,7 @@ function AppComponent({ code }) {
                 <Route path="/profile" element={<UserProfileScreen />} />
                 <Route path="demo" element={<DemoScreen />} />
                 <Route path="/settings" element={<SettingsScreen />} />
-<<<<<<< HEAD
                 <Route path="/home" element={<HomeScreen />} />
-=======
-                <Route path="/home" element={<SettingsScreen />} />
->>>>>>> fc063eb (Updated changes to new master)
             </Routes>
         </div>
     );

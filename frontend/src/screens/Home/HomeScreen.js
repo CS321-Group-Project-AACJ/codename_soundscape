@@ -7,7 +7,6 @@ import users from "./users";
 import "./HomeScreen.css";
 
 export default function HomeScreen() {
->>>>>>> fc063eb (Updated changes to new master)
 	return (
 		<>
 	<div className="home">
