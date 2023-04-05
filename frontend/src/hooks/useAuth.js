@@ -35,7 +35,7 @@ export default function useAuth(code) {
                 }
             );
             console.log(response.data);
-            window.history.pushState({}, null, "/");
+            window.history.pushState({}, null, "/home");
 
             const { accessToken, refreshToken, expiresIn } = response.data;
             dispatch(setAccessToken(accessToken));
@@ -43,7 +43,7 @@ export default function useAuth(code) {
             dispatch(setExpiresInToken(expiresIn));
             // dispatch(setExpiresInToken(61));
         } catch (error) {
-            window.location = "/";
+            // window.location = "/";
         }
     }
 
@@ -61,7 +61,7 @@ export default function useAuth(code) {
             console.log(registerResponse);
             dispatch(setIsLoggedIn(true));
         } catch (error) {
-            window.location = "/";
+            // window.location = "/";
         }
     }
 
@@ -80,7 +80,7 @@ export default function useAuth(code) {
             dispatch(setExpiresInToken(expiresIn));
             // dispatch(setExpiresInToken(61));
         } catch (error) {
-            window.location = "/";
+            // window.location = "/";
         }
     }
 
