@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import useAuth from "hooks/useAuth";
 import DemoScreen from "screens/Demo/DemoScreen";
 import LoginScreen from "screens/Login/LoginScreen";
+import HomeScreen from "screens/Home/HomeScreen"
 import UserProfileScreen from "screens/UserProfile/UserProfileScreen";
 import "./App.css";
 import SettingsScreen from "screens/Settings/SettingsScreen";
@@ -38,7 +39,7 @@ function AppComponent({ code }) {
                 <Route path="/profile" element={<UserProfileScreen />} />
                 <Route path="demo" element={<DemoScreen />} />
                 <Route path="/settings" element={<SettingsScreen />} />
-                <Route path="/home" element={<SettingsScreen />} />
+                <Route path="/home" element={<HomeScreen />} />
             </Routes>
         </div>
     );

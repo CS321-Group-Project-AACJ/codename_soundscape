@@ -6,7 +6,7 @@ import UserList from "./UserList";
 import users from "./users";
 import "./HomeScreen.css";
 
-export default function HomeScreen() {
+function HomeScreen() {
 	return (
 		<>
 	<div className="home">
@@ -24,3 +24,5 @@ export default function HomeScreen() {
 	</>
 	);
 }
+
+export default HomeScreen;
