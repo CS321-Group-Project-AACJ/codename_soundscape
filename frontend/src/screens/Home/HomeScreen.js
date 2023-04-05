@@ -6,7 +6,8 @@ import UserList from "./UserList";
 import users from "./users";
 import "./HomeScreen.css";
 
-function HomeScreen() {
+export default function HomeScreen() {
+>>>>>>> fc063eb (Updated changes to new master)
 	return (
 		<>
 	<div className="home">
@@ -24,5 +25,3 @@ function HomeScreen() {
 	</>
 	);
 }
-
-export default HomeScreen;
