@@ -1,27 +1,22 @@
 .user-card-container {
-	/* position: relative;
-	display: flex;
-	margin-bottom: 50px;
-	background-color: grey;
-	border-radius: 10px; */
-	/* left: 1050px; */
-	/* width: 1000px;
-	height: 200px; */
-	border: solid red;
+	margin: 5px;
+	border-bottom: solid black;
 }
 
 .user-card-container .user-info {
-	border: solid blue;
+	/* border: solid blue; */
 	display: flex;
 	/* justify-content: center; */
 	align-items: center;
+	padding: 5px 0;
 }
 
 .user-card-container .user-info .img-container {
 	/* border: solid red; */
-	width: 75px;
-	height: 75px;
+	width: 60px;
+	height: 60px;
 	border-radius: 50%;
+	/* margin: 5px; */
 }
 
 .user-card-container .img-container img {
@@ -31,16 +26,17 @@
 
 /* Song section */
 .user-card-container .song-info {
-	border: solid thick green;
+	/* border: solid thick green; */
 	display: flex;
 	/* justify-content: space-between; */
 	align-items: center;
+	padding: 5px 0;
 }
 
 .user-card-container .song-info .img-container {
-	border: solid thick pink;
-	width: 75px;
-    height: 75px;
+	/* border: solid thick pink; */
+	width: 100px;
+    height: 100px;
     border-radius: 5px;
     /* border: solid red; */
     flex-shrink: 0;
