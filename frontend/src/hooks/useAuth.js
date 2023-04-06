@@ -139,8 +139,9 @@ export default function useAuth(code) {
     }, [refreshToken, expiresIn]);
 
     //For setting the access token for the spotifyApi Helper globally
-    useEffect(() => {
-        if (!accessToken) return;
-        spotifyApi.setAccessToken(accessToken);
-    }, [accessToken]);
+    // useEffect(() => {
+    //     if (!accessToken) return;
+    //     console.log("I ran");
+    //     spotifyApi.setAccessToken(accessToken);
+    // }, [accessToken]);
 }

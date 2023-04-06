@@ -38,7 +38,9 @@ export default function UserProfileScreen({ myProfile, }) {
         "Extra one Idk",
     ];
     const [userData, setUserData] = useState({});
-    const accessToken = useSelector((state) => state.appConfig.tokens.accessToken);
+    const accessToken = useSelector(
+        (state) => state.appConfig.tokens.accessToken
+    );
 
     async function getMyData() {
         try {
@@ -56,12 +58,19 @@ export default function UserProfileScreen({ myProfile, }) {
         // spotifyApi.setAccessToken(accessToken);
         getMyData();
     }, []);
+    
+    //For setting the access token for the spotifyApi Helper globally
+    useEffect(() => {
+        if (!accessToken) return;
+        console.log("I ran");
+        spotifyApi.setAccessToken(accessToken);
+    }, [accessToken]);
 
     return (
         <main className="user-profile">
             {/* <PageHeader /> */}
             <div className="user-header">
-                <div className="user-img">
+                <div className="img-container">
                     <img src={pfp} />
                 </div>
                 <div className="info">

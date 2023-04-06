@@ -25,4 +25,15 @@ main {
     grid-column: 4 / 13;
     grid-row: 2 / 13;
     overflow-y: auto;
+    flex-grow: 1;
+}
+
+.img-container {
+    /* border: solid red; */
+    overflow: hidden;
+}
+
+img {
+    width: 100%;
+    height: auto;
 }

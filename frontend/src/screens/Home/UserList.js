@@ -8,6 +8,7 @@ function UserList({ users }) {
             {users.map((user) => (
                 <UserCard user={user} key={user.id} />
             ))}
+            {/* <UserCard user={users[0]} key={users[0].id} /> */}
         </div>
     );
 }

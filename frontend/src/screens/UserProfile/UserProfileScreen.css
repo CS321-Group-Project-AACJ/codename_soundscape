@@ -1,6 +1,6 @@
-.user-profile {
+/* .user-profile {
     flex-grow: 1;
-}
+} */
 
 .user-header {
     /* border: solid red; */
@@ -9,19 +9,17 @@
     /* flex-grow: 1; */
 }
 
-.user-profile .user-img {
-    /* border: solid red; */
+.user-profile .img-container {
     height: 175px;
     width: 175px;
-    overflow: hidden;
-    border-radius: 50%;
     margin-right: 10%;
+    border-radius: 50%;
 }
 
-.user-profile .user-img img {
+/* .user-profile .user-img img {
     width: 100%;
     height: auto;
-}
+} */
 
 .user-profile .user-header .info {
     /* border: solid blue; */
@@ -66,11 +64,6 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-}
-
-.spotify-profile-btn img {
-    width: 100%;
-    height: auto;
 }
 
 .user-profile .main-content {
@@ -134,7 +127,6 @@
     height: 150px;
     /* margin: 10px; */
     border-radius: 5px;
-    overflow: hidden;
 }
 
 .playlist-container img {
@@ -174,13 +166,7 @@
     height: 75px;
     border-radius: 5px;
     /* border: solid red; */
-    overflow: hidden;
     flex-shrink: 0;
-}
-
-.song-container .img-container img {
-    width: auto;
-    height: 100%;
 }
 
 .song-container .song-info {
