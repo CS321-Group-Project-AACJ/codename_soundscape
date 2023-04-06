@@ -1,0 +1,36 @@
+.home {
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+}
+
+.side-bar {
+	background-color: lightgrey;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 30%;
+	height: 100%;
+}
+
+.left-side {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin-top: 100px;
+	margin-left: 100px;
+	width: 40%;
+	height: 100%;
+}
+
+.right-side {
+	margin-top: 50px;
+	margin-left: -15%;
+	height: 100%;
+}
+
+.nav {
+	color: black;
+	font-size: 48px;
+}
