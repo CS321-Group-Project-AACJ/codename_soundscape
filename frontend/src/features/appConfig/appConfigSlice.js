@@ -2,11 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     tokens: {
-        accessToken: "",
-        refreshToken: "",
-        expiresIn: 0,
+        accessToken: localStorage.getItem("accessToken") || "",
+        refreshToken: localStorage.getItem("refreshToken") || "",
+        expiresIn: JSON.parse(localStorage.getItem("expiresIn")) || 0,
+        timestamp: JSON.parse(localStorage.getItem("timestamp")) || 0,
     },
-    isLoggedIn: false,
+    isLoggedIn: JSON.parse(localStorage.getItem("isLoggedIn")) || false,
     location: {
         loaded: false,
         coordinates: { lat: 0, lng: 0 },
@@ -26,6 +27,9 @@ export const appConfigSlice = createSlice({
         },
         setExpiresInToken: (state, action) => {
             state.tokens.expiresIn = action.payload;
+        },
+        setTimestamp: (state, action) => {
+            state.tokens.timestamp = action.payload;
         },
         removeAccessToken: (state, action) => {
             state.tokens.accessToken = action.payload;
@@ -66,6 +70,7 @@ export const {
     setAccessToken,
     setRefreshToken,
     setExpiresInToken,
+    setTimestamp,
     removeAccessToken,
     removeRefreshToken,
     removeExpiresInToken,

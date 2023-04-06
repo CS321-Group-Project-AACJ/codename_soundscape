@@ -55,3 +55,7 @@ To use this project,
 -   Adrian Joseph
 -   Christopher Chay
 -   Jack Kelz
+
+### External Sources
+[Web Dev Simplified](https://www.youtube.com/watch?v=Xcet6msf3eE&t=2534s)
+[newline - Using Local Storage to Persist Login State](https://www.newline.co/courses/build-a-spotify-connected-app/using-local-storage-to-persist-login-state)
