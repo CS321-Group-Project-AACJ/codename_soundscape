@@ -1,8 +1,17 @@
-import React from 'react'
+import React from "react";
 import "./SettingsScreen.css";
+import CustomButton from "components/ui/CustomButton";
 
 export default function SettingsScreen() {
-  return (
-    <div>Settings Screen</div>
-  )
+    function handleLogOut() {
+        localStorage.clear();
+        window.location = "/";
+    }
+
+    return (
+        <>
+            <div>Settings Screen</div>
+            <CustomButton text={"Log Out"} handleFunction={handleLogOut} />
+        </>
+    );
 }

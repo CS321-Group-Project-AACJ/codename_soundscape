@@ -52,10 +52,10 @@ export default function UserProfileScreen({ myProfile, }) {
     }
 
     useEffect(() => {
-        if (!accessToken) return;
-        spotifyApi.setAccessToken(accessToken);
+        // if (!accessToken) return;
+        // spotifyApi.setAccessToken(accessToken);
         getMyData();
-    }, [accessToken]);
+    }, []);
 
     return (
         <main className="user-profile">

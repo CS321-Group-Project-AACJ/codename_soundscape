@@ -9,11 +9,14 @@ import UserProfileScreen from "screens/UserProfile/UserProfileScreen";
 import "./App.css";
 import SettingsScreen from "screens/Settings/SettingsScreen";
 import useGeoLocation from "hooks/useGeoLocation";
+import { useSelector } from "react-redux";
 
 const code = new URLSearchParams(window.location.search).get("code");
 
 function App() {
-    return code ? <AppComponent code={code} /> : <LoginScreen />;
+    const isLoggedIn = useSelector((state) => state.appConfig.isLoggedIn);
+
+    return code || isLoggedIn ? <AppComponent code={code} /> : <LoginScreen />;
 
     // <div className="app">
     //     <Nav />
