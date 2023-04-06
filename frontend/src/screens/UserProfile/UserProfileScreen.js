@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./UserProfileScreen.css";
 import CustomButton from "components/ui/CustomButton";
-import PageHeader from "components/sections/PageHeader";
-import SpotifyWebApi from "spotify-web-api-node";
 
 import pfp from "../../assets/images/profile_pic.png";
 import spotifyLogo from "../../assets/images/spotify_logo.png";
@@ -18,10 +16,7 @@ import September from "../../assets/images/Album-cover-September.jpeg";
 import NoIdea from "../../assets/images/Album-cover-NoIdea.jpeg";
 import Vibe from "../../assets/images/Album-cover-Vibe.jpeg";
 import { useSelector } from "react-redux";
-
-const spotifyApi = new SpotifyWebApi({
-    clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
-});
+import { mySpotifyApi } from "App";
 
 export default function UserProfileScreen({ myProfile, }) {
     const genres = [
@@ -38,14 +33,11 @@ export default function UserProfileScreen({ myProfile, }) {
         "Extra one Idk",
     ];
     const [userData, setUserData] = useState({});
-    const accessToken = useSelector(
-        (state) => state.appConfig.tokens.accessToken
-    );
 
     async function getMyData() {
         try {
-            // const response = await spotifyApi.getMe();
-            const response = await spotifyApi.getUser("its_dannyj");
+            // const response = await mySpotifyApi.getMe();
+            const response = await mySpotifyApi.getUser("its_dannyj");
             console.log(response.body);
             setUserData(response.body);
         } catch (error) {
@@ -54,21 +46,11 @@ export default function UserProfileScreen({ myProfile, }) {
     }
 
     useEffect(() => {
-        // if (!accessToken) return;
-        // spotifyApi.setAccessToken(accessToken);
         getMyData();
     }, []);
-    
-    //For setting the access token for the spotifyApi Helper globally
-    useEffect(() => {
-        if (!accessToken) return;
-        console.log("I ran");
-        spotifyApi.setAccessToken(accessToken);
-    }, [accessToken]);
 
     return (
         <main className="user-profile">
-            {/* <PageHeader /> */}
             <div className="user-header">
                 <div className="img-container">
                     <img src={pfp} />
