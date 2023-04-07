@@ -11,7 +11,7 @@ import "./App.css";
 import SettingsScreen from "screens/Settings/SettingsScreen";
 import useGeoLocation from "hooks/useGeoLocation";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-node";
 
 const code = new URLSearchParams(window.location.search).get("code");
@@ -25,14 +25,16 @@ function App() {
     const accessToken = useSelector(
         (state) => state.appConfig.tokens.accessToken
     );
+    const [accessTokenIsSet, setAccessTokenIsSet] = useState(false);
 
     useEffect(() => {
         if (!accessToken) return;
         console.log("I ran");
         mySpotifyApi.setAccessToken(accessToken);
+        setAccessTokenIsSet(true);
     }, [accessToken]);
 
-    return code || isLoggedIn ? <AppComponent code={code} /> : <LoginScreen />;
+    return code || (isLoggedIn && accessTokenIsSet) ? <AppComponent code={code} /> : <LoginScreen />;
 
     // <div className="app">
     //     <Nav />
