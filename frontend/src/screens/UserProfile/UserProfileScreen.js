@@ -18,20 +18,7 @@ import Vibe from "../../assets/images/Album-cover-Vibe.jpeg";
 import { useSelector } from "react-redux";
 import { mySpotifyApi } from "App";
 
-export default function UserProfileScreen({ myProfile, }) {
-    const genres = [
-        "Pop",
-        "Rock",
-        "Hip Hop",
-        "Latin",
-        "Dance",
-        "R&B",
-        "Country",
-        "Metal",
-        "Jazz",
-        "Classical",
-        "Extra one Idk",
-    ];
+export default function UserProfileScreen({ myProfile }) {
     const [userData, setUserData] = useState({});
 
     async function getMyData() {
@@ -51,95 +38,122 @@ export default function UserProfileScreen({ myProfile, }) {
 
     return (
         <main className="user-profile">
-            <div className="user-header">
-                <div className="img-container">
-                    <img src={pfp} />
-                </div>
-                <div className="info">
-                    <div className="username">@user_name</div>
-                    <div className="follow-info">
-                        <div className="followers">0 followers</div>
-                        <div className="following">0 following</div>
-                    </div>
-                    <div className="interactables">
-                        {!myProfile ? (
-                            <CustomButton
-                                text="Follow"
-                                style={{ flexGrow: 0.5 }}
-                            />
-                        ) : (
-                            <></>
-                        )}
-                        <div className="spotify-profile-btn">
-                            <img src={spotifyLogo} />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="main-content">
-                <section className="genres-container">
-                    <h2>Genre's Listened To</h2>
-                    <div className="genres-wrapper">
-                        <div className="genres-content">
-                            {genres.map((item, i) => (
-                                <Genre key={i} name={item} />
-                            ))}
-                        </div>
-                    </div>
-                </section>
-                <section className="playlists">
-                    <h2>Playlists</h2>
-                    <div>
-                        <Playlist
-                            name="Generic playlist"
-                            img={playlistCover1}
-                        />
-                        <Playlist
-                            name="Hip-Hop Playlist"
-                            img={playlistCover2}
-                        />
-                        <Playlist name="Chill Playlist" img={playlistCover3} />
-                        {/* <div>See more on Spotify...</div> */}
-                    </div>
-                </section>
-                <section className="recents">
-                    <h2>Recent Listing History</h2>
-                    <div className="history-container">
-                        <SongCard
-                            name="Real"
-                            artists={["Kendrick Lamer"]}
-                            img={Real}
-                        />
-                        <SongCard
-                            name="Toast"
-                            artists={["Koffee"]}
-                            img={Toast}
-                        />
-                        <SongCard
-                            name="Don't Matter To Me"
-                            artists={["Drake", "Michael Jackson"]}
-                            img={Drake}
-                        />
-                        <SongCard
-                            name="September"
-                            artists={["Earth, Wind & Fire"]}
-                            img={September}
-                        />
-                        <SongCard
-                            name="No Idea"
-                            artists={["Don Toliver"]}
-                            img={NoIdea}
-                        />
-                        <SongCard
-                            name="Vibe"
-                            artists={["Skip Marley", "Popcaan"]}
-                            img={Vibe}
-                        />
-                    </div>
-                    <div style={{ textAlign: "right" }}>Load more...</div>
-                </section>
-            </div>
+            <UserProfileHeaderView myProfile={myProfile}/>
+            <UserProfileBodyView />
         </main>
+    );
+}
+
+function UserProfileHeaderView({myProfile}) {
+    return (
+        <div className="user-header">
+            <div className="img-container">
+                <img src={pfp} />
+            </div>
+            <div className="info">
+                <div className="username">@user_name</div>
+                <div className="follow-info">
+                    <div className="followers">0 followers</div>
+                    <div className="following">0 following</div>
+                </div>
+                <div className="interactables">
+                    {!myProfile ? (
+                        <CustomButton text="Follow" style={{ flexGrow: 0.5 }} />
+                    ) : (
+                        <></>
+                    )}
+                    <div className="spotify-profile-btn">
+                        <img src={spotifyLogo} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function UserProfileBodyView() {
+    return (
+        <div className="main-content">
+            <GenresView />
+            <PlaylistsView />
+            <RecentSongsView />
+        </div>
+    );
+}
+
+function GenresView() {
+    const genres = [
+        "Pop",
+        "Rock",
+        "Hip Hop",
+        "Latin",
+        "Dance",
+        "R&B",
+        "Country",
+        "Metal",
+        "Jazz",
+        "Classical",
+        "Extra one Idk",
+    ];
+
+    return (
+        <section className="genres-container">
+            <h2>Genre's Listened To</h2>
+            <div className="genres-wrapper">
+                <div className="genres-content">
+                    {genres.map((item, i) => (
+                        <Genre key={i} name={item} />
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function PlaylistsView() {
+    return (
+        <section className="playlists">
+            <h2>Playlists</h2>
+            <div>
+                <Playlist name="Generic playlist" img={playlistCover1} />
+                <Playlist name="Hip-Hop Playlist" img={playlistCover2} />
+                <Playlist name="Chill Playlist" img={playlistCover3} />
+                {/* <div>See more on Spotify...</div> */}
+            </div>
+        </section>
+    );
+}
+
+function RecentSongsView() {
+    return (
+        <section className="recents">
+            <h2>Recent Listing History</h2>
+            <div className="history-container">
+                <SongCard name="Real" artists={["Kendrick Lamer"]} img={Real} />
+                <SongCard name="Toast" artists={["Koffee"]} img={Toast} />
+                <SongCard
+                    name="Don't Matter To Me"
+                    artists={["Drake", "Michael Jackson"]}
+                    img={Drake}
+                />
+                <SongCard
+                    name="September"
+                    artists={["Earth, Wind & Fire"]}
+                    img={September}
+                />
+                <SongCard
+                    name="No Idea"
+                    artists={["Don Toliver"]}
+                    img={NoIdea}
+                />
+                <SongCard
+                    name="Vibe"
+                    artists={["Skip Marley", "Popcaan"]}
+                    img={Vibe}
+                />
+            </div>
+            <div style={{ textAlign: "right" }}>Load more...</div>
+        </section>
     );
 }
 
