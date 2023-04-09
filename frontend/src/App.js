@@ -6,6 +6,7 @@ import useAuth from "hooks/useAuth";
 import DemoScreen from "screens/Demo/DemoScreen";
 import LoginScreen from "screens/Login/LoginScreen";
 import HomeScreen from "screens/Home/HomeScreen";
+import DetailsScreen from "screens/Details/DetailsScreen"
 import UserProfileScreen from "screens/UserProfile/UserProfileScreen";
 import "./App.css";
 import SettingsScreen from "screens/Settings/SettingsScreen";
@@ -61,6 +62,7 @@ function AppComponent({ code }) {
                 {/* insert new routs here */}
                 <Route path="/settings" element={<SettingsScreen />} />
                 <Route path="demo" element={<DemoScreen />} />
+                <Route path="/details" element={<DetailsScreen />} />
             </Routes>
         </div>
     );
