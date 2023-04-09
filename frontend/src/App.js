@@ -42,6 +42,7 @@ function AppComponent({ code }) {
                 <Route path="/profile" element={<UserProfileScreen />} />
                 <Route path="demo" element={<DemoScreen />} />
                 <Route path="/settings" element={<SettingsScreen />} />
+                <Route path="/details" element={<DetailsScreen />} />
             </Routes>
         </div>
     );

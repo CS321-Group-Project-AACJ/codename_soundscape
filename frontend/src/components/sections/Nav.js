@@ -11,6 +11,7 @@ export default function Nav() {
                 <NavLink name={"Search"} path={"/search"} />
                 <NavLink name={"Profile"} path={"/profile"} />
                 <NavLink name={"Settings"} path={"/settings"} />
+                <NavLink name={"Details"} path={"/details"} />
             </div>
             <Footer style={{ fontSize: ".8rem" }} />
         </nav>
