@@ -18,11 +18,6 @@ const spotifyApi = new SpotifyWebApi({
 });
 
 export default function useAuth(code) {
-    const localRefreshToken = localStorage.getItem("refreshToken");
-    const localAccessToken = localStorage.getItem("accessToken");
-    const localExpiresIn = localStorage.getItem("expiresIn");
-    const localTimestamp = localStorage.getItem("timestamp");
-
     const location = useSelector((state) => state.appConfig.location);
 
     const accessToken = useSelector(
@@ -37,15 +32,6 @@ export default function useAuth(code) {
     const isLoggedIn = useSelector((state) => state.appConfig.isLoggedIn);
 
     const dispatch = useDispatch();
-
-    function hasAccessTokenExpired() {
-        if (!accessToken || !localTimestamp) {
-            return false;
-        }
-
-        const millisecondsElapsed = Date.now() - Number(localTimestamp);
-        return millisecondsElapsed / 1000 > Number(expiresIn);
-    }
 
     async function initializeTokens() {
         try {
@@ -153,8 +139,9 @@ export default function useAuth(code) {
     }, [refreshToken, expiresIn]);
 
     //For setting the access token for the spotifyApi Helper globally
-    useEffect(() => {
-        if (!accessToken) return;
-        spotifyApi.setAccessToken(accessToken);
-    }, [accessToken]);
+    // useEffect(() => {
+    //     if (!accessToken) return;
+    //     console.log("I ran");
+    //     spotifyApi.setAccessToken(accessToken);
+    // }, [accessToken]);
 }
