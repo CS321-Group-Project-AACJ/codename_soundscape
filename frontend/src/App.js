@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import useAuth from "hooks/useAuth";
 import DemoScreen from "screens/Demo/DemoScreen";
 import LoginScreen from "screens/Login/LoginScreen";
+import DetailsScreen from "screens/Details/DetailsScreen"
 import UserProfileScreen from "screens/UserProfile/UserProfileScreen";
 import "./App.css";
 import SettingsScreen from "screens/Settings/SettingsScreen";
