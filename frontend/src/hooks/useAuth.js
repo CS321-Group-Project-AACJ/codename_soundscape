@@ -12,6 +12,7 @@ import {
     setTimestamp,
 } from "../features/appConfig/appConfigSlice.js";
 import SpotifyWebApi from "spotify-web-api-node";
+import URL from "data/URL.js";
 
 const spotifyApi = new SpotifyWebApi({
     clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
@@ -35,12 +36,9 @@ export default function useAuth(code) {
 
     async function initializeTokens() {
         try {
-            const response = await axios.post(
-                "http://localhost:3001/auth/login",
-                {
-                    code,
-                }
-            );
+            const response = await axios.post(`${URL}/auth/login`, {
+                code,
+            });
             console.log(response.data);
             window.history.pushState({}, null, "/home");
 
@@ -66,7 +64,7 @@ export default function useAuth(code) {
         try {
             console.log(location);
             const registerResponse = await axios.post(
-                "http://localhost:3001/accounts/register",
+                `${URL}/accounts/register`,
                 {
                     accessToken,
                     longitude: location.coordinates.lng,
@@ -83,12 +81,9 @@ export default function useAuth(code) {
 
     async function refreshAuth() {
         try {
-            const response = await axios.post(
-                "http://localhost:3001/auth/refresh",
-                {
-                    refreshToken,
-                }
-            );
+            const response = await axios.post(`${URL}/auth/refresh`, {
+                refreshToken,
+            });
             console.log(response.data);
 
             const { accessToken, expiresIn } = response.data;

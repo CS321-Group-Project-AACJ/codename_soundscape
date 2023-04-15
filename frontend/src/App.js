@@ -19,6 +19,7 @@ const code = new URLSearchParams(window.location.search).get("code");
 export const mySpotifyApi = new SpotifyWebApi({
     clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
 });
+// export const serverURL = "https://soundscape-backend.onrender.com/";
 // export const SpotifyAccessTokenContext = createContext();
 
 function App() {
