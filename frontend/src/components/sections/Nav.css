@@ -8,7 +8,7 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+    height: 825px;
 }
 
 nav div > * {
