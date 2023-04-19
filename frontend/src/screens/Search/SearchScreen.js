@@ -1,5 +1,5 @@
 import React from 'react'
-import "SearchScreen.css";
+import "./SearchScreen.css";
 
 export default function SearchScreen() {
   return (
