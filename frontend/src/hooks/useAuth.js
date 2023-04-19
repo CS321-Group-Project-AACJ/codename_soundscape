@@ -11,12 +11,7 @@ import {
     setIsLoggedIn,
     setTimestamp,
 } from "../features/appConfig/appConfigSlice.js";
-import SpotifyWebApi from "spotify-web-api-node";
 import URL from "data/URL.js";
-
-const spotifyApi = new SpotifyWebApi({
-    clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
-});
 
 export default function useAuth(code) {
     const location = useSelector((state) => state.appConfig.location);
