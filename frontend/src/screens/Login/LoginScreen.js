@@ -21,7 +21,7 @@ export default function LoginScreen() {
                 <div className="interactables">
                     <a href={AUTH_URL} style={{ textDecoration: "none" }}>
                         <CustomButton
-                            text={"Login with Spotifty"}
+                            text={"Login with Spotify"}
                             style={{ backgroundColor: "#1DB954" }}
                         />
                     </a>

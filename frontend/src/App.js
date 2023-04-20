@@ -14,11 +14,13 @@ import useGeoLocation from "hooks/useGeoLocation";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-node";
+import SearchScreen from "screens/Search/SearchScreen";
 
 const code = new URLSearchParams(window.location.search).get("code");
 export const mySpotifyApi = new SpotifyWebApi({
     clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
 });
+// export const serverURL = "https://soundscape-backend.onrender.com/";
 // export const SpotifyAccessTokenContext = createContext();
 
 function App() {
@@ -60,6 +62,7 @@ function AppComponent({ code }) {
                 <Route path="/profile" element={<UserProfileScreen />} />
                 <Route path="/home" element={<HomeScreen />} />
                 {/* insert new routs here */}
+                <Route path="/search" element={<SearchScreen />} />
                 <Route path="/settings" element={<SettingsScreen />} />
                 <Route path="demo" element={<DemoScreen />} />
                 <Route path="/details" element={<DetailsScreen />} />

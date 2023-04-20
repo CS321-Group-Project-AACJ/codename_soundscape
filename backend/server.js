@@ -18,13 +18,19 @@ app.use(bodyParser.json());
 mongoose.connect(connectionString);
 const database = mongoose.connection;
 
-database.on("error", (error) => {
-    console.log(error);
-});
+try {
+    database.on("error", (error) => {
+        console.log(error);
+    });
 
-database.once("connected", () => {
-    console.log("Database connected");
-});
+    database.once("connected", () => {
+        console.log("Database connected");
+    });
+} catch (error) {
+    // res.send("Error happened");
+    console.log("There was an error connecting to the database");
+    console.error(error);
+}
 
 //Routes
 const accountRouter = require("./routes/accountRouter.js");
