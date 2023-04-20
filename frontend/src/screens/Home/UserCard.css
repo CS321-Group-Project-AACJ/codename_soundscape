@@ -1,14 +1,25 @@
 .user-card-container {
 	margin: 5px;
 	border-bottom: solid black;
+	padding: 2px 5px;
 }
 
 .user-card-container .user-info {
 	/* border: solid blue; */
 	display: flex;
-	/* justify-content: center; */
 	align-items: center;
 	padding: 5px 0;
+}
+
+.user-card-container .user-info > * {
+	border: solid blue;	
+}
+
+.user-card-container .left {
+	display: flex;	
+	align-items: center;
+	padding: 5px 0;
+	flex-grow: 1;
 }
 
 .user-card-container .user-info .img-container {
@@ -45,4 +56,12 @@
 .user-card-container .song-info .song-image img{
 	width: auto;
 	height: 100%;
+}
+
+.user-card-container .song-info .interactions {
+	display: flex;
+}
+
+.user-card-container .song-info .interactions > * {
+	margin: 3px;
 }
