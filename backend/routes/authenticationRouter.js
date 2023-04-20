@@ -8,7 +8,7 @@ router.post("/login", async (req, res, next) => {
         const { code } = req.body;
 
         const spotifyApi = new SpotifyWebApi({
-            redirectUri: "http://localhost:3000",
+            redirectUri: "http://localhost:3000/home",
             clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
             clientSecret: "8365399e3ef94b52bde4654b5d003dc4",
         });

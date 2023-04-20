@@ -10,40 +10,50 @@ router.get("/", (req, res) => {
     res.json(accounts);
 });
 
-router.post("/register", async (req, res) => {
-    const spotifyApi = new SpotifyWebApi({
-        redirectUri: "http://localhost:3000",
-        clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
-        clientSecret: "8365399e3ef94b52bde4654b5d003dc4",
-    });
-    const { accessToken } = req.body;
-    // console.log(accessToken);
-    if (!accessToken) {
-        console.log("handle error here");
+router.post("/register", async (req, res, next) => {
+    try {
+        const spotifyApi = new SpotifyWebApi({
+            redirectUri: "http://localhost:3000",
+            clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
+            clientSecret: "8365399e3ef94b52bde4654b5d003dc4",
+        });
+        const { accessToken } = req.body;
+        // console.log(accessToken);
+        if (!accessToken) {
+            console.log("handle error here");
+        }
+        spotifyApi.setAccessToken(accessToken);
+
+        const response = await spotifyApi.getMe();
+        const userData = response.body;
+        // console.log(userData);
+
+        const existingAccount = await Account.exists({
+            spotifyId: userData.id,
+        });
+        if (existingAccount) {
+            res.json(
+                "An account has already been made for you. We did nothing."
+            );
+            return;
+        }
+        const { longitude, latitude } = req.body;
+        console.log(longitude);
+
+        const newLocation = await Location({
+            name: "Default",
+            location: { coordinates: [longitude, latitude] },
+        });
+        const newAccount = await Account.create({
+            spotifyId: userData.id,
+            location: newLocation,
+        });
+        res.json(newAccount);
+    } catch (error) {
+        console.log("We had trouble creating the account");
+        error.status = 500;
+        next(error);
     }
-    spotifyApi.setAccessToken(accessToken);
-
-    const response = await spotifyApi.getMe();
-    const userData = response.body;
-    // console.log(userData);
-
-    const existingAccount = await Account.exists({ spotifyId: userData.id });
-    if (existingAccount) {
-        res.json("An account has already been made for you. We did nothing.");
-        return;
-    }
-    const { longitude, latitude } = req.body;
-    console.log(longitude);
-
-    const newLocation = await Location({
-        name: "Default",
-        location: { coordinates: [longitude, latitude] },
-    });
-    const newAccount = await Account.create({
-        spotifyId: userData.id,
-        location: newLocation,
-    });
-    res.json(newAccount);
 });
 
 router.get("/db", async (req, res) => {

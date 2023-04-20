@@ -9,7 +9,7 @@
 
 nav {
     grid-column: 1 / 4;
-    grid-row: 1 / 8;
+    grid-row: 1 / 13;
     /* position: sticky;
     top: 0; */
 }
@@ -25,4 +25,39 @@ main {
     grid-column: 4 / 13;
     grid-row: 2 / 13;
     overflow-y: auto;
+    flex-grow: 1;
+}
+
+.img-container {
+    /* border: solid red; */
+    overflow: hidden;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.loading {
+    /* background-color: gray; */
+    opacity: .7;
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsl(200, 20%, 70%);
+    }
+
+    100% {
+        background-color: hsl(200, 20%, 95%);
+    }
+}
+
+.text.loading {
+    /* background-color: blue; */
+    border-radius: .125rem;
+    width: 8em;
+    height: 1em;
+    margin: 5px 0;
 }

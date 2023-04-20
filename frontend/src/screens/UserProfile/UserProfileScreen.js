@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./UserProfileScreen.css";
 import CustomButton from "components/ui/CustomButton";
-import PageHeader from "components/sections/PageHeader";
-import SpotifyWebApi from "spotify-web-api-node";
 
 import pfp from "../../assets/images/profile_pic.png";
 import spotifyLogo from "../../assets/images/spotify_logo.png";
@@ -18,12 +16,117 @@ import September from "../../assets/images/Album-cover-September.jpeg";
 import NoIdea from "../../assets/images/Album-cover-NoIdea.jpeg";
 import Vibe from "../../assets/images/Album-cover-Vibe.jpeg";
 import { useSelector } from "react-redux";
+import { mySpotifyApi } from "App";
 
-const spotifyApi = new SpotifyWebApi({
-    clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
-});
+export default function UserProfileScreen({ myProfile }) {
+    const [isLoading, setIsLoading] = useState(true);
+    const [userData, setUserData] = useState({});
+    const [playlists, setPlaylists] = useState({});
+    const [recentTracks, setRecentTracks] = useState({});
 
-export default function UserProfileScreen({ myProfile, }) {
+    async function getMyData() {
+        try {
+            // const response = await mySpotifyApi.getMe();
+            const userData = await mySpotifyApi.getMe();
+            const userId = userData.body.id;
+            console.log(userId);
+            const playlists = await mySpotifyApi.getUserPlaylists(userId);
+            const recents = await mySpotifyApi.getMyRecentlyPlayedTracks();
+            console.log(recents.body);
+            console.log(userData.body);
+            console.log(playlists.body);
+            setUserData(userData.body);
+            setPlaylists(playlists.body);
+            setRecentTracks(recents.body);
+            setIsLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getMyData();
+    }, []);
+
+    return (
+        <main className="user-profile">
+            <UserProfileHeaderView userData={userData} isLoading={isLoading} />
+            <UserProfileBodyView
+                playlists={playlists}
+                recentSongs={recentTracks}
+                isLoading={isLoading}
+            />
+        </main>
+    );
+}
+
+function UserProfileHeaderView({ userData, myProfile, isLoading }) {
+    const [followerCnt, setFollowerCnt] = useState(0);
+
+    useEffect(() => {
+        if (!userData) return;
+        if (userData.followers === undefined ) return;
+        setFollowerCnt(userData.followers.total);
+    }, [userData]);
+
+    if (isLoading) {
+        return (
+            <div className="user-header">
+                <div className="img-container loading"></div>
+                <div className="info">
+                    <div className="username text loading"></div>
+                    <div className="follow-info">
+                        <div className="followers text loading"></div>
+                        <div className="following text loading"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    } else {
+        return (
+            <div className="user-header">
+                <div className="img-container">
+                    <img src={userData.images[0].url || pfp} />
+                </div>
+                <div className="info">
+                    <div className="username">{userData.display_name}</div>
+                    <div className="follow-info">
+                        <div className="followers">
+                            {followerCnt || 0}{" "}
+                            {followerCnt === 1 ? "follower" : "followers"}
+                        </div>
+                        <div className="following">0 following</div>
+                    </div>
+                    <div className="interactables">
+                        {!myProfile ? (
+                            <CustomButton
+                                text="Follow"
+                                style={{ flexGrow: 0.5 }}
+                            />
+                        ) : (
+                            <></>
+                        )}
+                        <a href={userData.external_urls.spotify} target="_blank" className="spotify-profile-btn">
+                            <img src={spotifyLogo} />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+function UserProfileBodyView({ playlists, recentSongs, isLoading }) {
+    return (
+        <div className="main-content">
+            <GenresView />
+            <PlaylistsView playlists={playlists} isLoading={isLoading} />
+            <RecentSongsView recentSongs={recentSongs} isLoading={isLoading} />
+        </div>
+    );
+}
+
+function GenresView() {
     const genres = [
         "Pop",
         "Rock",
@@ -37,118 +140,68 @@ export default function UserProfileScreen({ myProfile, }) {
         "Classical",
         "Extra one Idk",
     ];
-    const [userData, setUserData] = useState({});
-    const accessToken = useSelector((state) => state.appConfig.tokens.accessToken);
-
-    async function getMyData() {
-        try {
-            // const response = await spotifyApi.getMe();
-            const response = await spotifyApi.getUser("its_dannyj");
-            console.log(response.body);
-            setUserData(response.body);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    useEffect(() => {
-        if (!accessToken) return;
-        spotifyApi.setAccessToken(accessToken);
-        getMyData();
-    }, [accessToken]);
 
     return (
-        <main className="user-profile">
-            {/* <PageHeader /> */}
-            <div className="user-header">
-                <div className="user-img">
-                    <img src={pfp} />
-                </div>
-                <div className="info">
-                    <div className="username">@user_name</div>
-                    <div className="follow-info">
-                        <div className="followers">0 followers</div>
-                        <div className="following">0 following</div>
-                    </div>
-                    <div className="interactables">
-                        {!myProfile ? (
-                            <CustomButton
-                                text="Follow"
-                                style={{ flexGrow: 0.5 }}
-                            />
-                        ) : (
-                            <></>
-                        )}
-                        <div className="spotify-profile-btn">
-                            <img src={spotifyLogo} />
-                        </div>
-                    </div>
+        <section className="genres-container">
+            <h2>Genre's Listened To</h2>
+            <div className="genres-wrapper">
+                <div className="genres-content">
+                    {genres.map((item, i) => (
+                        <Genre key={i} name={item} />
+                    ))}
                 </div>
             </div>
-            <div className="main-content">
-                <section className="genres-container">
-                    <h2>Genre's Listened To</h2>
-                    <div className="genres-wrapper">
-                        <div className="genres-content">
-                            {genres.map((item, i) => (
-                                <Genre key={i} name={item} />
-                            ))}
-                        </div>
-                    </div>
-                </section>
-                <section className="playlists">
-                    <h2>Playlists</h2>
-                    <div>
-                        <Playlist
-                            name="Generic playlist"
-                            img={playlistCover1}
-                        />
-                        <Playlist
-                            name="Hip-Hop Playlist"
-                            img={playlistCover2}
-                        />
-                        <Playlist name="Chill Playlist" img={playlistCover3} />
-                        {/* <div>See more on Spotify...</div> */}
-                    </div>
-                </section>
-                <section className="recents">
-                    <h2>Recent Listing History</h2>
+        </section>
+    );
+}
+
+function PlaylistsView({ playlists, isLoading }) {
+    return (
+        <section className="playlists">
+            <h2>Playlists</h2>
+            {isLoading ? (
+                <div>
+                    <Playlist isLoading />
+                    <Playlist isLoading />
+                    <Playlist isLoading />
+                </div>
+            ) : (
+                <div>
+                    {playlists.items.map((item, index) => (
+                        <Playlist playlistData={item} key={index} />
+                    ))}
+
+                    {/* <div>See more on Spotify...</div> */}
+                </div>
+            )}
+        </section>
+    );
+}
+
+function RecentSongsView({ recentSongs, isLoading }) {
+    // console.log(recentSongs);
+    return (
+        <section className="recents">
+            <h2>Recent Listing History</h2>
+            {isLoading ? (
+                <div className="history-container">
+                    <SongCard isLoading />
+                    <SongCard isLoading />
+                    <SongCard isLoading />
+                    <SongCard isLoading />
+                    <SongCard isLoading />
+                </div>
+            ) : (
+                <>
                     <div className="history-container">
-                        <SongCard
-                            name="Real"
-                            artists={["Kendrick Lamer"]}
-                            img={Real}
-                        />
-                        <SongCard
-                            name="Toast"
-                            artists={["Koffee"]}
-                            img={Toast}
-                        />
-                        <SongCard
-                            name="Don't Matter To Me"
-                            artists={["Drake", "Michael Jackson"]}
-                            img={Drake}
-                        />
-                        <SongCard
-                            name="September"
-                            artists={["Earth, Wind & Fire"]}
-                            img={September}
-                        />
-                        <SongCard
-                            name="No Idea"
-                            artists={["Don Toliver"]}
-                            img={NoIdea}
-                        />
-                        <SongCard
-                            name="Vibe"
-                            artists={["Skip Marley", "Popcaan"]}
-                            img={Vibe}
-                        />
+                        {recentSongs.items.map((item, index) => (
+                            <SongCard songData={item} key={index} />
+                        ))}
                     </div>
                     <div style={{ textAlign: "right" }}>Load more...</div>
-                </section>
-            </div>
-        </main>
+                </>
+            )}
+        </section>
     );
 }
 
@@ -156,38 +209,71 @@ function Genre({ name }) {
     return <div className="genre-container">{name}</div>;
 }
 
-function Playlist({ name, img }) {
-    return (
-        <div className="playlist-container">
-            <div className="img-container">
-                <img src={img} />
+function Playlist({ isLoading, playlistData }) {
+    // console.log(playlistData);
+    if (isLoading) {
+        return (
+            <div className="playlist-container">
+                <div className="img-container loading">
+                    {/* <img src={img} /> */}
+                </div>
+                <p className="text loading"></p>
             </div>
-            <p>{name}</p>
-        </div>
-    );
+        );
+    } else {
+        return (
+            <div className="playlist-container">
+                <div className="img-container">
+                    <img src={playlistData.images[0].url} />
+                </div>
+                <p>{playlistData.name}</p>
+            </div>
+        );
+    }
+    return <></>;
 }
 
-function SongCard({ name, artists, img }) {
+function SongCard({ name, img, isLoading, songData }) {
+    // console.log(songData);
+    // if (songData) console.log(songData.name);
     function ArtistsToString() {
-        let artistsString = artists[0];
+        const artists = songData.track.artists;
+        if (!artists) return "";
+
+        let artistsString = artists[0].name;
         if (artists.length > 1) {
             for (let i = 1; i < artists.length; i++) {
                 const artist = artists[i];
-                artistsString += `, ${artist}`;
+                // console.log(artist);
+                artistsString += `, ${artist.name}`;
             }
         }
         return artistsString;
     }
 
-    return (
-        <div className="song-container">
-            <div className="img-container">
-                <img src={img} />
+    if (isLoading) {
+        return (
+            <div className="song-container">
+                <div className="img-container loading">
+                    {/* <img src={img} /> */}
+                </div>
+                <div className="song-info">
+                    <p className="text loading" style={{ width: "80%" }}></p>
+                    <p className="text loading"></p>
+                </div>
             </div>
-            <div className="song-info">
-                <p>{name}</p>
-                <p>{ArtistsToString()}</p>
+        );
+    } else {
+        return (
+            <div className="song-container">
+                <div className="img-container">
+                    <img src={songData.track.album.images[0].url} />
+                </div>
+                <div className="song-info">
+                    <p>{songData.track.name}</p>
+                    <p>{ArtistsToString()}</p>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
