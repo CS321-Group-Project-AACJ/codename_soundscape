@@ -1,5 +1,10 @@
 import React from "react";
 import "./UserCard.css";
+import { FaEllipsisV } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
+import { MdPlaylistAdd } from "react-icons/md";
+import { MdOutlineQueue } from "react-icons/md";
 
 function UserCard({ user }) {
     return (
@@ -18,7 +23,10 @@ function UserCard({ user }) {
                         </div>
                     </div>
                 </div>
-                <div >...</div>
+
+                <div>
+                    <FaEllipsisV size="1.2rem" />
+                </div>
             </div>
             <div className="song-info">
                 <div className="left">
@@ -43,9 +51,15 @@ function UserCard({ user }) {
                     </div>
                 </div>
                 <div className="interactions">
-                    <div>heart</div>
-                    <div>playlist</div>
-                    <div>queue</div>
+                    <div>
+                        <FaRegHeart />
+                    </div>
+                    <div>
+                        <MdPlaylistAdd />
+                    </div>
+                    <div>
+                        <MdOutlineQueue />
+                    </div>
                 </div>
             </div>
         </div>

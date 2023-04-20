@@ -12,7 +12,7 @@
 }
 
 .user-card-container .user-info > * {
-	border: solid blue;	
+	/* border: solid blue;	 */
 }
 
 .user-card-container .left {
@@ -63,5 +63,10 @@
 }
 
 .user-card-container .song-info .interactions > * {
-	margin: 3px;
+	margin: 0 5px;
+	font-size: 1.3rem;
+}
+
+.user-card-container .song-info .interactions > *:last-child {
+	margin-right: 0;
 }

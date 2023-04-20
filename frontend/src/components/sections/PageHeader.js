@@ -1,16 +1,17 @@
 import React from 'react'
 import "./PageHeader.css"
+import { MdArrowBack } from "react-icons/md";
 
 export default function PageHeader({pageName}) {
   return (
       <header>
-          <div
-              style={{ fontSize: "1.5rem", fontWeight: 500 }}
+          {/* <div
+              style={{ fontWeight: "1.5rem",  }}
           >
-              {"<-"}
-          </div>
+              <MdArrowBack />
+          </div> */}
           <div
-              style={{ margin: "0 20px", fontSize: "1.5rem", fontWeight: 500 }}
+              style={{fontSize: "1.5rem", fontWeight: 500 }}
           >
               {pageName || "Default Page Name"}
           </div>
