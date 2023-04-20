@@ -11,10 +11,12 @@ import September from "../../assets/images/Song-cover-September.jpg";
 
 import bestOfEWF from "../../assets/images/Album-cover-September.jpeg";
 
+import { mySpotifyApi } from "App";
+
 export default function DetailsScreen() {
     return (
         <main className="song-details">
-            {/* <PageHeader /> */}
+            {/* <PageHeader pageName={"Details"}/>*/}
             <div className="song-header">
                 <div className="song-img">
                     <img src={September} width="250" height="250" />
@@ -27,14 +29,22 @@ export default function DetailsScreen() {
                         <div className="data">1:13 - track length</div>
                     </div>
                     <div className="interactables">
-                        <CustomButton text="Add To Playlist" style={{flexGrow: 0.35 }} />
-                        <CustomButton text="Save to library" type="TERTIARY" />
+                        <CustomButton 
+                        text="Add To Playlist" 
+                        style={{flexGrow: 0.35 }} 
+                        />
+
+                        <CustomButton 
+                        text="Save to library" 
+                        type="TERTIARY" 
+                        />
                     </div>
                     <div className="spotifyconnect">
                         <CustomButton
                         text="Open In Spotify"
                         style={{ alignItems: "center", width: 400, height: 65 }}
                         type="PRIMARY"
+                        handleFunction={() => searchAndOpenTrackUrl("September")}
                         />
                     </div>
                 </div>
@@ -82,6 +92,18 @@ function Album({ name, img }) {
         </div>
     );
 }
+
+async function searchAndOpenTrackUrl(trackName) {
+    const searchResults = await mySpotifyApi.searchTracks(trackName);
+    const firstTrack = searchResults?.tracks?.items?.[0];
+    if (firstTrack) {
+      const externalUrl = firstTrack.external_urls.spotify;
+      console.log(externalUrl);
+      //window.open(externalUrl, "_blank");
+      //return externalUrl;
+    }
+    return null;
+  }
 
 function ArtistCard({ artists, img }) {
     function ArtistsToString() {
