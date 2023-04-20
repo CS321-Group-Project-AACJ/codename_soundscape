@@ -1,12 +1,7 @@
 .column {
+    padding-left: 50px;
     float: left;
     width: 50%;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
 }
 
 .song-details {
@@ -29,10 +24,27 @@
     margin-right: 10%;
 }*/
 
-/*.song-details .song-img img {
-    width: 100%;
+.song-details .song-img img {
+    width: 300px;
     height: auto;
-}*/
+}
+
+.song-name-container {
+    align-self: flex-start;
+    padding-left: 90px ;
+}
+
+.song-data {
+    align-self: flex-start;
+    padding-left: 80px ;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 30px; /* Add this line */
+  }
 
 .song-details .song-header .info {
     /* border: solid blue; */
@@ -52,6 +64,7 @@
     text-align: center;
     font-size: 2rem;
     font-weight: 500;
+    align-self: flex-start;
 }
 
 .song-details .song-header .song-data {
@@ -85,22 +98,48 @@
 }
 
 .song-details .main-content {
-    margin: 20px;
+    margin: 70px;
+}
+
+.main-content{
+    padding-left: 20px;
+}
+
+.sub-head{
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-sub-head{
+    padding-left: 170px;
+}
+
+.album{
+    margin: 10px;
+    padding-left:110px;
+}
+
+.right-sub-head{
+    padding-right: 500px;
 }
 
 .interactables{
-    padding-left: 30px;
+    padding-left: 80px;
     height: 50px;
+}
+
+.playlist-container .playlist-image-container img {
+  width: 100px;
 }
 
 .spotifyconnect {
     padding-left: 80px;
 }
 
-/* .song-container {
+.song-container {
     display: flex;
     align-items: center;
     padding: 10px 25px;
     margin: 10px;
     margin-right: 100px
-} */
+} 
