@@ -11,9 +11,11 @@ export default function useUpdateCurrentSongPlaying() {
     async function getMyCurrentlyPlayingSong() {
         try {
             console.log("Getting currently playing song...");
-            const data = (await mySpotifyApi.getMyCurrentPlaybackState()).body
-                .item;
-            console.log(data);
+            const result = (await mySpotifyApi.getMyCurrentPlaybackState()).body;
+            console.log(result);
+            if (!result) return;
+
+            const data = result.item;
             const songData = {
                 songId: data.id,
             };
