@@ -3,5 +3,9 @@
 	/* display: flex;
 	justify-content: space-between;
 	flex-direction: column;  */
-	border: solid red;
+	/* border: solid red; */
+}
+
+.user-list > *:last-child {
+	border-bottom: none;
 }

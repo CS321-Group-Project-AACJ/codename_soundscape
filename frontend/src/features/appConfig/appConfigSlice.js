@@ -8,6 +8,7 @@ const initialState = {
         timestamp: JSON.parse(localStorage.getItem("timestamp")) || 0,
     },
     isLoggedIn: JSON.parse(localStorage.getItem("isLoggedIn")) || false,
+    spotifyId: localStorage.getItem("spotifyId") || "",
     location: {
         loaded: false,
         coordinates: { lat: 0, lng: 0 },
@@ -39,6 +40,9 @@ export const appConfigSlice = createSlice({
         },
         removeExpiresInToken: (state, action) => {
             state.tokens.expiresIn = action.payload;
+        },
+        setSpotifyId: (state, action) => {
+            state.spotifyId = action.payload;
         },
         setIsLoggedIn: (state, action) => {
             state.isLoggedIn = action.payload;
@@ -74,6 +78,7 @@ export const {
     removeAccessToken,
     removeRefreshToken,
     removeExpiresInToken,
+    setSpotifyId,
     setIsLoggedIn,
     toggleIsLoggedIn,
     setLocation,
