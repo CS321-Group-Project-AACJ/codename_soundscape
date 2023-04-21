@@ -43,8 +43,8 @@ router.post("/refresh", async (req, res, next) => {
         // spotifyApi.setAccessToken(data.body["access_token"]);
         res.json({
             accessToken: data.body.access_token,
-            expiresIn: data.body.expires_in
-        })
+            expiresIn: data.body.expires_in,
+        });
     } catch (error) {
         console.log("Could not refresh the access token");
         error.status = 400;
