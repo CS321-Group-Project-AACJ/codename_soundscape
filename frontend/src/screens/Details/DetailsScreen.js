@@ -11,56 +11,71 @@ import September from "../../assets/images/Song-cover-September.jpg";
 
 import bestOfEWF from "../../assets/images/Album-cover-September.jpeg";
 
+import { mySpotifyApi } from "App";
+
 export default function DetailsScreen() {
     return (
         <main className="song-details">
-            {/* <PageHeader /> */}
+            {/* <PageHeader pageName={"Details"}/>*/}
             <div className="song-header">
                 <div className="song-img">
                     <img src={September} width="250" height="250" />
                 </div>
                 <div className="info">
-                    <div className="song-name">September</div>
+                    <div className="song-name-container">
+                        <div className="song-name">September</div>
+                    </div>
                     <div className="song-data">
                         <div className="data">1:13 - track length</div>
                     </div>
                     <div className="interactables">
-                        <CustomButton text="Save to library" type="TERTIARY" />
-                        <CustomButton
-                            text="Add To Playlist"
-                            style={{ flexGrow: 0.35 }}
+                        <CustomButton 
+                        text="Add To Playlist" 
+                        style={{flexGrow: 0.35 }} 
+                        />
+
+                        <CustomButton 
+                        text="Save to library" 
+                        type="TERTIARY" 
                         />
                     </div>
                     <div className="spotifyconnect">
                         <CustomButton
-                            text="Open In Spotify"
-                            style={{
-                                alignitems: "center",
-                                width: 400,
-                                height: 65,
-                            }}
-                            type="PRIMARY"
+                        text="Open In Spotify"
+                        style={{ alignItems: "center", width: 400, height: 65 }}
+                        type="PRIMARY"
+                        handleFunction={() => searchAndOpenTrackUrl("September")}
                         />
                     </div>
                 </div>
             </div>
-            <div className="main-content" class="row">
-                <h3>Appears On:</h3>
-
-                <div class="column">
-                    <Album
-                        name="The Best of Earth, Wind & Fire, Vol. 1"
-                        img={bestOfEWF}
-                    />
+            <div className="main-content" >
+                <div className="sub-head">
+                    <div className="left-sub-head">
+                        <h3>Appears On:</h3>
+                    </div>
+                    <div className="right-sub-head">
+                        <h3>Artists</h3>
+                    </div>
+                </div>
+                <div className="column">
+                    <div className="album">
+                        <Album
+                            name="The Best of Earth, Wind & Fire, Vol. 1"
+                            img={bestOfEWF}
+                        />
+                    </div>
                     {/* <div>See more on Spotify...</div> */}
                 </div>
-                <h3>Artists</h3>
-                <div className="history-container" class="column">
-                    <ArtistCard
-                        artists={["Earth, Wind & Fire"]}
-                        img={September}
-                        style={{ flex: 5 }}
-                    />
+                
+                <div className="column">
+                    <div className="history-container">
+                        <ArtistCard
+                            artists={["Earth, Wind & Fire"]}
+                            img={September}
+                            style={{ flex: 5 }}
+                        />
+                    </div>
                 </div>
             </div>
         </main>
@@ -70,13 +85,25 @@ export default function DetailsScreen() {
 function Album({ name, img }) {
     return (
         <div className="playlist-container">
-            <div className="img-container">
+            <div className="playlist-image-container">
                 <img src={img} />
             </div>
-            <p>{name}</p>
+            {name}
         </div>
     );
 }
+
+async function searchAndOpenTrackUrl(trackName) {
+    const searchResults = await mySpotifyApi.searchTracks(trackName);
+    const firstTrack = searchResults?.tracks?.items?.[0];
+    if (firstTrack) {
+      const externalUrl = firstTrack.external_urls.spotify;
+      console.log(externalUrl);
+      //window.open(externalUrl, "_blank");
+      //return externalUrl;
+    }
+    return null;
+  }
 
 function ArtistCard({ artists, img }) {
     function ArtistsToString() {
