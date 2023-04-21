@@ -1,7 +1,11 @@
 const express = require("express");
 const accounts = require("../data/accounts.json");
 // const db = require("../db/database.js");
-const { Account, Location } = require("../db/model/accountModel.js");
+const {
+    Account,
+    Location,
+    Song,
+} = require("../db/model/accountModel.js");
 const SpotifyWebApi = require("spotify-web-api-node");
 
 const router = express.Router();
@@ -51,6 +55,32 @@ router.post("/register", async (req, res, next) => {
         res.json(newAccount);
     } catch (error) {
         console.log("We had trouble creating the account");
+        error.status = 500;
+        next(error);
+    }
+});
+
+router.patch("/songs/current-playing", async (req, res, next) => {
+    try {
+        const { spotifyId } = req.body;
+        console.log(`Spotify Id: ${spotifyId}`);
+        const { songId } = req.body.songData;
+
+        const newCurrentSong = await Song({
+            songId,
+        });
+        console.log(newCurrentSong);
+
+        await Account.updateOne(
+            { spotifyId: spotifyId },
+            {
+                "currentSong.song": newCurrentSong,
+                "currentSong.updatedAt": Date.now(),
+            }
+        );
+        res.json("Updated current song");
+    } catch (error) {
+        console.log("We had trouble updating your currently playing song");
         error.status = 500;
         next(error);
     }
