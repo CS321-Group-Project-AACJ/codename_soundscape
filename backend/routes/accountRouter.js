@@ -24,7 +24,6 @@ router.post("/register", async (req, res, next) => {
         }
         spotifyApi.setAccessToken(accessToken);
 
-        
         const response = await spotifyApi.getMe();
         const userData = response.body;
         // console.log(userData);
@@ -109,6 +108,23 @@ router.patch("/songs/current-playing", async (req, res, next) => {
         res.json("Updated current song");
     } catch (error) {
         console.log("We had trouble updating your currently playing song");
+        error.status = 500;
+        next(error);
+    }
+});
+
+router.get("/songs/current-playing", async (req, res, next) => {
+    try {
+        console.log(("JKNAJKSDNFJKSDNKJNJS:"));
+        const { spotifyId } = req.query;
+        // console.log(`Spotify Id: ${spotifyId}`);
+
+        const user = await Account.findOne({ spotifyId: spotifyId });
+        // console.log(user);
+        const { songId } = user.currentSong.song;
+        res.json(songId);
+    } catch (error) {
+        console.log("We had trouble getting your currently playing song");
         error.status = 500;
         next(error);
     }

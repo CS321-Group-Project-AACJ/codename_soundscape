@@ -17,10 +17,15 @@ import NoIdea from "../../assets/images/Album-cover-NoIdea.jpeg";
 import Vibe from "../../assets/images/Album-cover-Vibe.jpeg";
 import { useSelector } from "react-redux";
 import { mySpotifyApi } from "App";
+import axios from "axios";
+import URL from "data/URL";
+import SongCard from "components/sections/SongCard";
+import { refreshRateMS } from "utils";
 
 export default function UserProfileScreen({ myProfile }) {
     const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState({});
+    const [currentSong, setCurrentSong] = useState({});
     const [playlists, setPlaylists] = useState({});
     const [recentTracks, setRecentTracks] = useState({});
 
@@ -65,7 +70,7 @@ function UserProfileHeaderView({ userData, myProfile, isLoading }) {
 
     useEffect(() => {
         if (!userData) return;
-        if (userData.followers === undefined ) return;
+        if (userData.followers === undefined) return;
         setFollowerCnt(userData.followers.total);
     }, [userData]);
 
@@ -106,7 +111,11 @@ function UserProfileHeaderView({ userData, myProfile, isLoading }) {
                         ) : (
                             <></>
                         )}
-                        <a href={userData.external_urls.spotify} target="_blank" className="spotify-profile-btn">
+                        <a
+                            href={userData.external_urls.spotify}
+                            target="_blank"
+                            className="spotify-profile-btn"
+                        >
                             <img src={spotifyLogo} />
                         </a>
                     </div>
@@ -119,38 +128,51 @@ function UserProfileHeaderView({ userData, myProfile, isLoading }) {
 function UserProfileBodyView({ playlists, recentSongs, isLoading }) {
     return (
         <div className="main-content">
-            <GenresView />
+            <CurrentlyPlayingView isLoading={isLoading} />
             <PlaylistsView playlists={playlists} isLoading={isLoading} />
             <RecentSongsView recentSongs={recentSongs} isLoading={isLoading} />
         </div>
     );
 }
 
-function GenresView() {
-    const genres = [
-        "Pop",
-        "Rock",
-        "Hip Hop",
-        "Latin",
-        "Dance",
-        "R&B",
-        "Country",
-        "Metal",
-        "Jazz",
-        "Classical",
-        "Extra one Idk",
-    ];
+function CurrentlyPlayingView({ isLoading }) {
+    const spotifyId = useSelector((state) => state.appConfig.spotifyId);
+    const [songData, setSongData] = useState({});
+    const [localIsLoading, setLocalIsLoading] = useState(true);
+
+    async function getCurrentlyPlayingSong() {
+        const songId = (
+            await axios.get(
+                `${URL}/accounts/songs/current-playing?spotifyId=${spotifyId}`
+            )
+        ).data;
+        console.log(songId);
+
+        const songData = (await mySpotifyApi.getTrack(songId)).body;
+        console.log(songData);
+        setSongData(songData);
+        setLocalIsLoading(false);
+    }
+
+    useEffect(() => {
+        getCurrentlyPlayingSong();
+        const interval = setInterval(() => {
+            getCurrentlyPlayingSong();
+        }, refreshRateMS);
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
-        <section className="genres-container">
-            <h2>Genre's Listened To</h2>
-            <div className="genres-wrapper">
-                <div className="genres-content">
-                    {genres.map((item, i) => (
-                        <Genre key={i} name={item} />
-                    ))}
-                </div>
-            </div>
+        <section className="currently-container">
+            <h2>Currently Listening To</h2>
+            {/* <div className="currently-wrapper">
+                <div className="currently-content"></div>
+            </div> */}
+            <SongCard
+                songData={songData}
+                isLoading={isLoading || localIsLoading}
+            />
         </section>
     );
 }
@@ -233,7 +255,7 @@ function Playlist({ isLoading, playlistData }) {
     return <></>;
 }
 
-function SongCard({ name, img, isLoading, songData }) {
+function SongCard2({ name, img, isLoading, songData }) {
     // console.log(songData);
     // if (songData) console.log(songData.name);
     function ArtistsToString() {
