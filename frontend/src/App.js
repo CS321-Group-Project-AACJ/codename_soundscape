@@ -18,6 +18,7 @@ import SearchScreen from "screens/Search/SearchScreen";
 import useUpdateCurrentSongPlaying from "hooks/useUpdateCurrentSongPlaying";
 import { setSpotifyId } from "features/appConfig/appConfigSlice";
 import useUpdateRecentSongs from "hooks/useUpdateRecentSongs";
+import MessageModal from "components/ui/MessageModal";
 
 const code = new URLSearchParams(window.location.search).get("code");
 export const mySpotifyApi = new SpotifyWebApi({
@@ -83,9 +84,14 @@ function AppComponent({ code }) {
             {/* <p>{code}</p> */}
             <Nav />
             <PageHeader />
+            <MessageModal />
 
             <Routes>
-                <Route path="/profile" element={<UserProfileScreen />} />
+                <Route
+                    path="/profile"
+                    element={<UserProfileScreen myProfile/>}
+                />
+                <Route path="/users/:spotifyId" element={<UserProfileScreen />} />
                 <Route path="/home" element={<HomeScreen />} />
                 {/* insert new routs here */}
                 <Route path="/search" element={<SearchScreen />} />

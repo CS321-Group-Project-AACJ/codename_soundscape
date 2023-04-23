@@ -87,6 +87,22 @@ router.post("/test-register", async (req, res, next) => {
     }
 });
 
+router.get("/search", async (req, res, next) => {
+    try {
+        const { searchText } = req.query;
+        // console.log(typeof searchText);
+        const results = await Account.find({
+            spotifyId: { $regex: searchText, $options: "i" },
+        });
+        // console.log(results);
+        res.json(results);
+    } catch (error) {
+        console.log("We had trouble searching the account");
+        error.status = 500;
+        next(error);
+    }
+});
+
 router.patch("/songs/current-playing", async (req, res, next) => {
     try {
         const { spotifyId } = req.body;
@@ -115,7 +131,6 @@ router.patch("/songs/current-playing", async (req, res, next) => {
 
 router.get("/songs/current-playing", async (req, res, next) => {
     try {
-        console.log(("JKNAJKSDNFJKSDNKJNJS:"));
         const { spotifyId } = req.query;
         // console.log(`Spotify Id: ${spotifyId}`);
 
