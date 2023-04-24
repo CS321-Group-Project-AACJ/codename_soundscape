@@ -14,6 +14,8 @@ const initialState = {
         coordinates: { lat: 0, lng: 0 },
     },
     theme: "light",
+    modalIsShowing: false,
+    modalText: "",
 };
 
 export const appConfigSlice = createSlice({
@@ -67,6 +69,15 @@ export const appConfigSlice = createSlice({
                 state.theme = "light";
             }
         },
+        showModal: (state) => {
+            state.modalIsShowing = true;
+        },
+        hideModal: (state) => {
+            state.modalIsShowing = false;
+        },
+        setModalText: (state, action) => {
+            state.modalText = action.payload;
+        },
     },
 });
 
@@ -84,5 +95,8 @@ export const {
     setLocation,
     setTheme,
     toggleTheme,
+    showModal,
+    hideModal,
+    setModalText,
 } = appConfigSlice.actions;
 export default appConfigSlice.reducer;

@@ -11,7 +11,7 @@ import "./SongCard.css";
 export default function SongCard({ songData, isLoading }) {
     // console.log(songData);
     // if (songData) console.log(songData.name);
-    console.log(songData);
+    // console.log(songData);
     const [isLiked, setIsLiked] = useState(false);
 
     async function toggleLike() {
@@ -63,7 +63,7 @@ export default function SongCard({ songData, isLoading }) {
                 <div className="img-container">
                     <img
                         src={
-                            songData?.album?.images[0]?.url || (
+                            songData?.album?.images?.[0]?.url || (
                                 <ImgPlaceholder />
                             )
                         }

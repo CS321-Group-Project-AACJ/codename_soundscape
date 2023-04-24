@@ -7,6 +7,8 @@ import { MdPlaylistAdd } from "react-icons/md";
 import { MdOutlineQueue } from "react-icons/md";
 import { mySpotifyApi } from "App";
 import { ArtistsToString } from "../../utils";
+import DefaultProfilePicture from "../../../src/assets/images/default-profile-photo.jpg";
+import { Link } from "react-router-dom";
 
 function UserCard({ user, parentIsLoading }) {
     const [songData, setSongData] = useState(false);
@@ -112,24 +114,34 @@ function UserCard({ user, parentIsLoading }) {
         return (
             <div className="user-card-container">
                 <div className="user-info">
-                    <div className="left">
-                        <div className="img-container">
-                            <img src={user.image} alt={user.name} />
-                        </div>
-                        <div>
-                            <div
-                                style={{ margin: "0 10px", fontSize: "1.3rem" }}
-                            >
-                                {user.spotifyId}
+                    <Link to={`../users/${user.spotifyId}`}>
+                        <div className="left">
+                            <div className="img-container">
+                                <img
+                                    src={user.image || DefaultProfilePicture}
+                                    alt={user.name}
+                                />
                             </div>
-                            <div
-                                style={{ margin: "0 10px", fontSize: ".8rem" }}
-                            >
-                                4 min. ago
+                            <div>
+                                <div
+                                    style={{
+                                        margin: "0 10px",
+                                        fontSize: "1.3rem",
+                                    }}
+                                >
+                                    {user.spotifyId}
+                                </div>
+                                <div
+                                    style={{
+                                        margin: "0 10px",
+                                        fontSize: ".8rem",
+                                    }}
+                                >
+                                    4 min. ago
+                                </div>
                             </div>
                         </div>
-                    </div>
-
+                    </Link>
                     <div>
                         <FaEllipsisV size="1.2rem" className="interactable" />
                     </div>
@@ -138,7 +150,7 @@ function UserCard({ user, parentIsLoading }) {
                     <div className="left">
                         <div className="img-container">
                             <img
-                                src={songData?.album?.images[0]?.url || null}
+                                src={songData?.album?.images?.[0]?.url || null}
                                 alt={"album picture"}
                             />
                         </div>

@@ -1,0 +1,23 @@
+.modal {
+    position: absolute;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    background-color: #333;
+    color: white;
+    align-self: flex-end;
+    justify-self: center;
+    margin: 25px;
+
+    /* animation-name: slide-up;
+    animation-duration: 1s; */
+}
+
+@keyframes slide-up {
+    0% {
+        bottom: -100px;
+        margin: 0;
+    }
+    100% {
+        margin: 25px;
+    }
+}
