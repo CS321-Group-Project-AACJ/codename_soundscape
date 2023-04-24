@@ -17,6 +17,7 @@ import SpotifyWebApi from "spotify-web-api-node";
 import SearchScreen from "screens/Search/SearchScreen";
 import useUpdateCurrentSongPlaying from "hooks/useUpdateCurrentSongPlaying";
 import { setSpotifyId } from "features/appConfig/appConfigSlice";
+import useUpdateRecentSongs from "hooks/useUpdateRecentSongs";
 
 const code = new URLSearchParams(window.location.search).get("code");
 export const mySpotifyApi = new SpotifyWebApi({
@@ -70,10 +71,11 @@ function AppComponent({ code }) {
     useGeoLocation();
     useAuth(code);
     useUpdateCurrentSongPlaying();
+    useUpdateRecentSongs();
     const navigate = useNavigate();
 
     useEffect(() => {
-        navigate("/home");
+        // navigate("/home");
     }, []);
 
     return (

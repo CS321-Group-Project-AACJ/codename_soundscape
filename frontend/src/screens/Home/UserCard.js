@@ -12,12 +12,16 @@ function UserCard({ user, parentIsLoading }) {
     const [songData, setSongData] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isLiked, setIsLiked] = useState(false);
+    const [gotData, setGotData] = useState(false);
 
     async function getSongData() {
         console.log("Getting song data...");
         const songId = user?.currentSong?.song?.songId;
         console.log(songId);
-        if (!songId) return;
+        if (!songId) {
+            setGotData(true);
+            return;
+        }
 
         const result = (await mySpotifyApi.getTrack(songId)).body;
         console.log(result);
@@ -28,6 +32,7 @@ function UserCard({ user, parentIsLoading }) {
         console.log(isLiked);
         setIsLiked(isLiked);
         setIsLoading(false);
+        setGotData(true);
     }
 
     useEffect(() => {
@@ -51,6 +56,10 @@ function UserCard({ user, parentIsLoading }) {
         } catch (error) {
             setIsLiked(prevValue);
         }
+    }
+
+    if (isLoading && gotData) {
+        return;
     }
 
     if (isLoading) {

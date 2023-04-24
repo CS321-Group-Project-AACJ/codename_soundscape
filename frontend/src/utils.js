@@ -11,3 +11,6 @@ export function ArtistsToString(artists) {
     }
     return artistsString;
 }
+
+const refreshRate = 5; //refresh rate in seconds
+export const refreshRateMS = refreshRate * 1000; //refresh rate in milliseconds

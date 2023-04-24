@@ -36,7 +36,9 @@ function UserList() {
                     <UserCard parentIsLoading />
                 </>
             ) : (
-                users.map((user) => <UserCard user={user} key={user.spotifyId} />)
+                users.map((user) => (
+                    <UserCard user={user} key={user.spotifyId} />
+                ))
             )}
 
             {/* <UserCard user={users[0]} key={users[0].id} /> */}
