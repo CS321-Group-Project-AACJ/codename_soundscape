@@ -8,7 +8,32 @@ import { setModalText, showModal } from "features/appConfig/appConfigSlice";
 import { mySpotifyApi } from "App";
 import SongCard from "components/sections/SongCard";
 
+
 export default function SearchScreen() {
+
+
+ function handleSubmit(event) {
+    let search = document.getElementById("search").value;
+    alert(search);
+ }
+  return (
+    <div class = "search">
+      
+      <h1>Search</h1>
+      {/* <form> */}
+        <label htmlFor="search">Search:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+        />
+        <button type="button" onClick={handleSubmit} class="custom-btn">Submit</button>
+        {/* </form> */}
+        
+    </div>
+    
+  )
+=======
     const [searchText, setSearchText] = useState("");
     const [loading, setIsLoading] = useState(true);
     const [users, setUsers] = useState([]);
@@ -134,4 +159,6 @@ function UserCard({ data }) {
             <div>{user?.display_name}</div>
         </div>
     );
+   
 }
+
