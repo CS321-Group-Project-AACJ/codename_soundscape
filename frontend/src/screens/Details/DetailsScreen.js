@@ -3,7 +3,6 @@ import "./DetailsScreen.css";
 import CustomButton from "components/ui/CustomButton";
 import PageHeader from "components/sections/PageHeader";
 import { useParams } from "react-router-dom";
-import axios from 'axios';
 
 import spotifyLogo from "../../assets/images/spotify_logo.png";
 
