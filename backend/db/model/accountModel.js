@@ -15,6 +15,10 @@ const locationSchema = new Schema({
     },
 });
 
+const songSchema = new Schema({
+    songId: { type: String, required: true },
+});
+
 const accountSchema = new Schema({
     spotifyId: { type: String, required: true },
     location: { type: locationSchema, required: true },
@@ -59,11 +63,20 @@ const accountSchema = new Schema({
     savedLocations: [
         { type: SchemaTypes.ObjectId, ref: "Location", required: true },
     ],
+    currentSong: {
+        song: { type: songSchema },
+        updatedAt: { type: Date, default: () => Date.now() },
+    },
+    recentSongs: {
+        songs: [{ type: songSchema }],
+        updatedAt: { type: Date, default: () => Date.now() },
+    },
 });
 
 const Account = model("Account", accountSchema);
 const Location = model("Location", locationSchema);
-module.exports = { Account, Location };
+const Song = model("Song", songSchema);
+module.exports = { Account, Location, Song };
 
 /* Account:
 - spotify user account

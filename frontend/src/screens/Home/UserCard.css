@@ -3,25 +3,31 @@ a {
 }
 
 .user-card-container {
-	margin: 5px;
+	margin: 0 5px;
 	border-bottom: solid black;
+	padding: 2px 5px;
 }
 
 .user-card-container .user-info {
 	/* border: solid blue; */
-	background-color:  #A9A9A9;
 	display: flex;
-	/* justify-content: center; */
 	align-items: center;
 	padding: 5px 0;
 	padding-left: 15px;
+}
+
+.user-card-container .left {
+	display: flex;	
+	align-items: center;
+	padding: 5px 0;
+	flex-grow: 1;
 }
 
 .user-card-container .user-info .img-container {
 	/* border: solid red; */
 	width: 60px;
 	height: 60px;
-	border-radius: 50%;
+	border-radius: 50%;	
 	/* margin: 5px; */
 }
 
@@ -33,7 +39,6 @@ a {
 /* Song section */
 .user-card-container .song-info {
 	/* border: solid thick green; */
-	background-color: grey;
 	display: flex;
 	/* justify-content: space-between; */
 	align-items: center;
@@ -57,4 +62,17 @@ a {
 .user-card-container .song-info .song-image img{
 	width: auto;
 	height: 100%;
+}
+
+.user-card-container .song-info .interactions {
+	display: flex;
+}
+
+.user-card-container .song-info .interactions > * {
+	margin: 0 5px;
+	font-size: 1.3rem;
+}
+
+.user-card-container .song-info .interactions > *:last-child {
+	margin-right: 0;
 }
