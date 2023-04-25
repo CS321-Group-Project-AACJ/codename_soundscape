@@ -86,7 +86,7 @@ function UserProfileHeaderView({ userData, myProfile, isLoading }) {
         return (
             <div className="user-header">
                 <div className="img-container">
-                    <img src={userData.images[0].url || pfp} />
+                    <img src={pfp} />
                 </div>
                 <div className="info">
                     <div className="username">{userData.display_name}</div>
