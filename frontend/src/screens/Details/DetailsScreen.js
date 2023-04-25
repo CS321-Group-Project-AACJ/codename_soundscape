@@ -88,7 +88,7 @@ export default function DetailsScreen() {
 
     return (
         <main className="song-details">
-            {/* <PageHeader pageName={"Details"}/>*/}
+            {<PageHeader pageName={"Details"}/>}
             <div className="song-header">
                 <div className="song-img">
                     <img src={song?.imageUrl || null} width="250" height="250" />
