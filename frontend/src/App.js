@@ -94,6 +94,7 @@ function AppComponent({ code }) {
                 <Route path="/users/:spotifyId" element={<UserProfileScreen />} />
                 <Route path="/home" element={<HomeScreen />} />
                 {/* insert new routs here */}
+                <Route path="/details/:songId" element={<DetailsScreen />} />
                 <Route path="/search" element={<SearchScreen />} />
                 <Route path="/settings" element={<SettingsScreen />} />
                 <Route path="demo" element={<DemoScreen />} />
