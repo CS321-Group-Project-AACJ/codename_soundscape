@@ -3,7 +3,6 @@ import "./DetailsScreen.css";
 import CustomButton from "components/ui/CustomButton";
 import PageHeader from "components/sections/PageHeader";
 import { useParams } from "react-router-dom";
-import axios from 'axios';
 
 import spotifyLogo from "../../assets/images/spotify_logo.png";
 
@@ -88,7 +87,7 @@ export default function DetailsScreen() {
 
     return (
         <main className="song-details">
-            {/* <PageHeader pageName={"Details"}/>*/}
+            {<PageHeader pageName={"Details"}/>}
             <div className="song-header">
                 <div className="song-img">
                     <img src={song?.imageUrl || null} width="250" height="250" />

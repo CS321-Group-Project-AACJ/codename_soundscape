@@ -6,6 +6,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { MdPlaylistAdd } from "react-icons/md";
 import { MdOutlineQueue } from "react-icons/md";
 import { mySpotifyApi } from "App";
+import { Link } from "react-router-dom";
 import "./SongCard.css";
 
 export default function SongCard({ songData, isLoading }) {
@@ -60,19 +61,25 @@ export default function SongCard({ songData, isLoading }) {
     } else {
         return (
             <div className="song-container">
-                <div className="img-container">
-                    <img
-                        src={
-                            songData?.album?.images?.[0]?.url || (
-                                <ImgPlaceholder />
-                            )
-                        }
-                    />
-                </div>
-                <div className="song-info">
-                    <p>{songData?.name}</p>
-                    <p>{ArtistsToString(songData?.artists)}</p>
-                </div>
+                
+                    <div className="img-container">
+                        <Link to={`../details/${songData?.id}`}>
+                            <img
+                                src={
+                                    songData?.album?.images?.[0]?.url || (
+                                        <ImgPlaceholder />
+                                    )
+                                }
+                            />
+                        </Link>
+                    </div>
+                    <div className="song-info">
+                        <Link to={`../details/${songData?.id}`}>
+                            <p>{songData?.name}</p>
+                            <p>{ArtistsToString(songData?.artists)}</p>
+                        </Link>
+                    </div>
+                
                 <div className="interactions">
                     <div>
                         {isLiked ? (

@@ -98,7 +98,6 @@ function AppComponent({ code }) {
                 <Route path="/search" element={<SearchScreen />} />
                 <Route path="/settings" element={<SettingsScreen />} />
                 <Route path="demo" element={<DemoScreen />} />
-                <Route path="/details" element={<DetailsScreen />} />
             </Routes>
         </div>
     );
