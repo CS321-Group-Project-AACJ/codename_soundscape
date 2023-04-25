@@ -92,6 +92,7 @@ function UserCard({ user, parentIsLoading }) {
                     <div className="left">
                         <div className="img-container loading"></div>
                         <div className="song-detail">
+                            <Link to={`../users/${user?.currentSong?.song?.songId}`}>
                             {/* <div className="button-song"> */}
                             <p
                                 className="user-card-title text loading"
@@ -105,6 +106,7 @@ function UserCard({ user, parentIsLoading }) {
                                 style={{ margin: "8px 10px", fontSize: "1rem" }}
                             ></p>
                             {/* </div> */}
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -155,6 +157,7 @@ function UserCard({ user, parentIsLoading }) {
                             />
                         </div>
                         <div className="song-detail">
+                            <Link to={`../details/${user?.currentSong?.song?.songId}`}>
                             {/* <div className="button-song"> */}
                             <p
                                 className="user-card-title"
@@ -169,6 +172,7 @@ function UserCard({ user, parentIsLoading }) {
                                 {ArtistsToString(songData.artists)}
                             </p>
                             {/* </div> */}
+                            </Link>
                         </div>
                     </div>
                     <div className="interactions">
