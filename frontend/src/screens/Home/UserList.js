@@ -11,13 +11,13 @@ function UserList() {
     const spotifyId = useSelector((state) => state.appConfig.spotifyId);
 
     async function getUsers() {
-        console.log("Getting Users");
+        // console.log("Getting Users");
         const results = (
             await axios.get(
                 `${URL}/accounts/home?spotifyId=${spotifyId}&maxDistance=5`
             )
         ).data;
-        console.log(results);
+        // console.log(results);
         setUsers(results);
         setIsLoading(false);
     }

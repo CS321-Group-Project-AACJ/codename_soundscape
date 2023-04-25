@@ -19,6 +19,7 @@ import useUpdateCurrentSongPlaying from "hooks/useUpdateCurrentSongPlaying";
 import { setSpotifyId } from "features/appConfig/appConfigSlice";
 import useUpdateRecentSongs from "hooks/useUpdateRecentSongs";
 import MessageModal from "components/ui/MessageModal";
+import AddToPlaylist from "components/sections/AddToPlaylist";
 
 const code = new URLSearchParams(window.location.search).get("code");
 export const mySpotifyApi = new SpotifyWebApi({
@@ -85,6 +86,7 @@ function AppComponent({ code }) {
             <Nav />
             <PageHeader />
             <MessageModal />
+            <AddToPlaylist />
 
             <Routes>
                 <Route

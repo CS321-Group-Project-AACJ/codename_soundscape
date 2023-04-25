@@ -16,6 +16,10 @@ const initialState = {
     theme: "light",
     modalIsShowing: false,
     modalText: "",
+    addToPlaylist: {
+        addToPlaylistIsShowing: false,
+        songToAddId: "",
+    },
 };
 
 export const appConfigSlice = createSlice({
@@ -78,6 +82,14 @@ export const appConfigSlice = createSlice({
         setModalText: (state, action) => {
             state.modalText = action.payload;
         },
+        showAddToPlaylist: (state, action) => {
+            state.addToPlaylist.addToPlaylistIsShowing = true;
+            state.addToPlaylist.songToAddId = action.payload;
+        },
+        hideAddToPlaylist: (state) => {
+            state.addToPlaylist.addToPlaylistIsShowing = false;
+            state.addToPlaylist.songToAddId = "";
+        },
     },
 });
 
@@ -98,5 +110,7 @@ export const {
     showModal,
     hideModal,
     setModalText,
+    showAddToPlaylist,
+    hideAddToPlaylist
 } = appConfigSlice.actions;
 export default appConfigSlice.reducer;

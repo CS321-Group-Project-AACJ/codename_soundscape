@@ -7,18 +7,18 @@ import { refreshRateMS } from "utils";
 
 export default function useUpdateRecentSongs() {
     const spotifyId = useSelector((state) => state.appConfig.spotifyId);
-    console.log(spotifyId);
 
     async function getMyRecentSongs() {
         try {
-            console.log("Getting currently playing song...");
+            // console.log("Getting currently playing song...");
             const recents = (await mySpotifyApi.getMyRecentlyPlayedTracks())
                 .body;
-            console.log(recents?.items[0]?.track?.id);
-            const ids = recents.items.map((item) => item.track.id)
-            console.log(ids);
             if (!recents) return;
+            // console.log(recents?.items[0]?.track?.id);
+            const ids = recents.items.map((item) => item.track.id);
+            // console.log(ids);
 
+            postMyRecentSongs(ids);
             // const response = await axios.patch(
             //     `${URL}/accounts/songs/current-playing`,
             //     { spotifyId, songData }
@@ -31,11 +31,19 @@ export default function useUpdateRecentSongs() {
         }
     }
 
+    async function postMyRecentSongs(songIds) {
+        const results = await axios.patch(`${URL}/accounts/songs/recents`, {
+            spotifyId,
+            songIds,
+        });
+        // console.log(results);
+    }
+
     useEffect(() => {
         if (!spotifyId) return;
 
         const interval = setInterval(() => {
-            console.log("I am running...");
+            // console.log("I am running...");
             getMyRecentSongs();
         }, refreshRateMS);
 

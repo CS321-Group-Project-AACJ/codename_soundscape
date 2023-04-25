@@ -34,7 +34,7 @@ export default function useAuth(code) {
             const response = await axios.post(`${URL}/auth/login`, {
                 code,
             });
-            console.log(response.data);
+            // console.log(response.data);
             window.history.pushState({}, null, "/home");
 
             const { accessToken, refreshToken, expiresIn } = response.data;
@@ -57,7 +57,7 @@ export default function useAuth(code) {
 
     async function registerAccount() {
         try {
-            console.log(location);
+            // console.log(location);
             const registerResponse = await axios.post(
                 `${URL}/accounts/register`,
                 {
@@ -66,7 +66,7 @@ export default function useAuth(code) {
                     latitude: location.coordinates.lat,
                 }
             );
-            console.log(registerResponse);
+            // console.log(registerResponse);
             dispatch(setIsLoggedIn(true));
             localStorage.setItem("isLoggedIn", true);
         } catch (error) {
@@ -79,7 +79,7 @@ export default function useAuth(code) {
             const response = await axios.post(`${URL}/auth/refresh`, {
                 refreshToken,
             });
-            console.log(response.data);
+            // console.log(response.data);
 
             const { accessToken, expiresIn } = response.data;
             const time = Date.now();
@@ -99,13 +99,13 @@ export default function useAuth(code) {
 
     useEffect(() => {
         if (!accessToken || !refreshToken || !expiresIn || !timestamp) {
-            console.log("I am bout to initialize app");
-            console.log("This is first time logging in");
+            // console.log("I am bout to initialize app");
+            // console.log("This is first time logging in");
             initializeTokens();
         } else {
-            console.log(
-                "We have logged in before, checking access token in storage..."
-            );
+            // console.log(
+            //     "We have logged in before, checking access token in storage..."
+            // );
             refreshAuth();
         }
     }, [code]);
