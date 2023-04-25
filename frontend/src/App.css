@@ -61,3 +61,7 @@ img {
     height: 1em;
     margin: 5px 0;
 }
+
+.interactable {
+    cursor: pointer;
+}

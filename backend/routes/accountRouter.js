@@ -1,7 +1,7 @@
 const express = require("express");
 const accounts = require("../data/accounts.json");
 // const db = require("../db/database.js");
-const { Account, Location } = require("../db/model/accountModel.js");
+const { Account, Location, Song } = require("../db/model/accountModel.js");
 const SpotifyWebApi = require("spotify-web-api-node");
 
 const router = express.Router();
@@ -51,6 +51,131 @@ router.post("/register", async (req, res, next) => {
         res.json(newAccount);
     } catch (error) {
         console.log("We had trouble creating the account");
+        error.status = 500;
+        next(error);
+    }
+});
+
+router.post("/test-register", async (req, res, next) => {
+    try {
+        const { spotifyId } = req.body;
+        const existingAccount = await Account.exists({
+            spotifyId: spotifyId,
+        });
+        if (existingAccount) {
+            res.json(
+                "An account has already been made for you. We did nothing."
+            );
+            return;
+        }
+        const { longitude, latitude } = req.body;
+        console.log(longitude);
+
+        const newLocation = await Location({
+            name: "Default",
+            location: { coordinates: [longitude, latitude] },
+        });
+        const newAccount = await Account.create({
+            spotifyId: spotifyId,
+            location: newLocation,
+        });
+        res.json(newAccount);
+    } catch (error) {
+        console.log("We had trouble creating the account");
+        error.status = 500;
+        next(error);
+    }
+});
+
+router.get("/search", async (req, res, next) => {
+    try {
+        const { searchText } = req.query;
+        // console.log(typeof searchText);
+        const results = await Account.find({
+            spotifyId: { $regex: searchText, $options: "i" },
+        });
+        // console.log(results);
+        res.json(results);
+    } catch (error) {
+        console.log("We had trouble searching the account");
+        error.status = 500;
+        next(error);
+    }
+});
+
+router.patch("/songs/current-playing", async (req, res, next) => {
+    try {
+        const { spotifyId } = req.body;
+        console.log(`Spotify Id: ${spotifyId}`);
+        const { songId } = req.body.songData;
+
+        const newCurrentSong = await Song({
+            songId,
+        });
+        console.log(newCurrentSong);
+
+        await Account.updateOne(
+            { spotifyId: spotifyId },
+            {
+                "currentSong.song": newCurrentSong,
+                "currentSong.updatedAt": Date.now(),
+            }
+        );
+        res.json("Updated current song");
+    } catch (error) {
+        console.log("We had trouble updating your currently playing song");
+        error.status = 500;
+        next(error);
+    }
+});
+
+router.get("/songs/current-playing", async (req, res, next) => {
+    try {
+        const { spotifyId } = req.query;
+        // console.log(`Spotify Id: ${spotifyId}`);
+
+        const user = await Account.findOne({ spotifyId: spotifyId });
+        // console.log(user);
+        const { songId } = user.currentSong.song;
+        res.json(songId);
+    } catch (error) {
+        console.log("We had trouble getting your currently playing song");
+        error.status = 500;
+        next(error);
+    }
+});
+
+router.get("/home", async (req, res, next) => {
+    try {
+        const { spotifyId, maxDistance } = req.query;
+        const myAccount = await Account.findOne({ spotifyId: spotifyId });
+        console.log(myAccount);
+
+        let locationQuery = {
+            $and: [
+                {
+                    "location.location": {
+                        $near: {
+                            // $maxDistance: 260000,
+                            $geometry: {
+                                type: "Point",
+                                coordinates: [
+                                    myAccount.location.location.coordinates[0],
+                                    myAccount.location.location.coordinates[1],
+                                ],
+                            },
+                        },
+                    },
+                },
+                { spotifyId: { $ne: spotifyId } },
+            ],
+        };
+
+        const results = await Account.find(locationQuery);
+        // console.log(results);
+        res.json(results);
+    } catch (error) {
+        console.log("We had trouble on our end");
         error.status = 500;
         next(error);
     }

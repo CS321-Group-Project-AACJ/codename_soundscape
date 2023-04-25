@@ -17,12 +17,21 @@ import NoIdea from "../../assets/images/Album-cover-NoIdea.jpeg";
 import Vibe from "../../assets/images/Album-cover-Vibe.jpeg";
 import { useSelector } from "react-redux";
 import { mySpotifyApi } from "App";
+import axios from "axios";
+import URL from "data/URL";
+import SongCard from "components/sections/SongCard";
+import { refreshRateMS } from "utils";
+import { useParams } from "react-router-dom";
 
 export default function UserProfileScreen({ myProfile }) {
     const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState({});
+    const [currentSong, setCurrentSong] = useState({});
     const [playlists, setPlaylists] = useState({});
     const [recentTracks, setRecentTracks] = useState({});
+
+    const { spotifyId } = useParams();
+    console.log(spotifyId);
 
     async function getMyData() {
         try {
@@ -32,9 +41,9 @@ export default function UserProfileScreen({ myProfile }) {
             console.log(userId);
             const playlists = await mySpotifyApi.getUserPlaylists(userId);
             const recents = await mySpotifyApi.getMyRecentlyPlayedTracks();
-            console.log(recents.body);
-            console.log(userData.body);
-            console.log(playlists.body);
+            // console.log(recents.body);
+            // console.log(userData.body);
+            // console.log(playlists.body);
             setUserData(userData.body);
             setPlaylists(playlists.body);
             setRecentTracks(recents.body);
@@ -44,8 +53,31 @@ export default function UserProfileScreen({ myProfile }) {
         }
     }
 
+    async function getUserData() {
+        try {
+            // const response = await mySpotifyApi.getMe();
+            const userData = (await mySpotifyApi.getUser(spotifyId)).body;
+            const playlists = (await mySpotifyApi.getUserPlaylists(spotifyId))
+                .body;
+            // const recents = await mySpotifyApi.getMyRecentlyPlayedTracks();
+            // console.log(recents.body);
+            console.log(userData);
+            console.log(playlists);
+            setUserData(userData);
+            setPlaylists(playlists);
+            // setRecentTracks(recents.body);
+            setIsLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
-        getMyData();
+        if (myProfile) {
+            getMyData();
+        } else {
+            getUserData();
+        }
     }, []);
 
     return (
@@ -55,6 +87,8 @@ export default function UserProfileScreen({ myProfile }) {
                 playlists={playlists}
                 recentSongs={recentTracks}
                 isLoading={isLoading}
+                myProfile={myProfile}
+                spotifyId={spotifyId}
             />
         </main>
     );
@@ -65,7 +99,7 @@ function UserProfileHeaderView({ userData, myProfile, isLoading }) {
 
     useEffect(() => {
         if (!userData) return;
-        if (userData.followers === undefined ) return;
+        if (userData.followers === undefined) return;
         setFollowerCnt(userData.followers.total);
     }, [userData]);
 
@@ -86,7 +120,11 @@ function UserProfileHeaderView({ userData, myProfile, isLoading }) {
         return (
             <div className="user-header">
                 <div className="img-container">
+<<<<<<< HEAD
                     <img src={pfp} />
+=======
+                    <img src={userData?.images?.[0]?.url || pfp} />
+>>>>>>> f98226af2a8aaeae6605aa3cc96701ce0419b7ad
                 </div>
                 <div className="info">
                     <div className="username">{userData.display_name}</div>
@@ -106,7 +144,11 @@ function UserProfileHeaderView({ userData, myProfile, isLoading }) {
                         ) : (
                             <></>
                         )}
-                        <a href={userData.external_urls.spotify} target="_blank" className="spotify-profile-btn">
+                        <a
+                            href={userData?.external_urls?.spotify}
+                            target="_blank"
+                            className="spotify-profile-btn"
+                        >
                             <img src={spotifyLogo} />
                         </a>
                     </div>
@@ -116,41 +158,70 @@ function UserProfileHeaderView({ userData, myProfile, isLoading }) {
     }
 }
 
-function UserProfileBodyView({ playlists, recentSongs, isLoading }) {
+function UserProfileBodyView({
+    playlists,
+    recentSongs,
+    isLoading,
+    myProfile,
+    spotifyId,
+}) {
     return (
         <div className="main-content">
-            <GenresView />
+            <CurrentlyPlayingView
+                isLoading={isLoading}
+                myProfile={myProfile}
+                spotifyId={spotifyId}
+            />
             <PlaylistsView playlists={playlists} isLoading={isLoading} />
-            <RecentSongsView recentSongs={recentSongs} isLoading={isLoading} />
+            <RecentSongsView
+                recentSongs={recentSongs}
+                isLoading={isLoading}
+                myProfile={myProfile}
+                spotifyId={spotifyId}
+            />
         </div>
     );
 }
 
-function GenresView() {
-    const genres = [
-        "Pop",
-        "Rock",
-        "Hip Hop",
-        "Latin",
-        "Dance",
-        "R&B",
-        "Country",
-        "Metal",
-        "Jazz",
-        "Classical",
-        "Extra one Idk",
-    ];
+function CurrentlyPlayingView({ isLoading, spotifyId, myProfile }) {
+    const localSpotifyId = useSelector((state) => state.appConfig.spotifyId);
+    const [songData, setSongData] = useState({});
+    const [localIsLoading, setLocalIsLoading] = useState(true);
+
+    async function getCurrentlyPlayingSong() {
+        const idToUse = myProfile ? localSpotifyId : spotifyId;
+        const songId = (
+            await axios.get(
+                `${URL}/accounts/songs/current-playing?spotifyId=${idToUse}`
+            )
+        ).data;
+        console.log(songId);
+
+        const songData = (await mySpotifyApi.getTrack(songId)).body;
+        console.log(songData);
+        setSongData(songData);
+        setLocalIsLoading(false);
+    }
+
+    useEffect(() => {
+        getCurrentlyPlayingSong();
+        const interval = setInterval(() => {
+            getCurrentlyPlayingSong();
+        }, refreshRateMS);
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
-        <section className="genres-container">
-            <h2>Genre's Listened To</h2>
-            <div className="genres-wrapper">
-                <div className="genres-content">
-                    {genres.map((item, i) => (
-                        <Genre key={i} name={item} />
-                    ))}
-                </div>
-            </div>
+        <section className="currently-container">
+            <h2>Currently Listening To</h2>
+            {/* <div className="currently-wrapper">
+                <div className="currently-content"></div>
+            </div> */}
+            <SongCard
+                songData={songData}
+                isLoading={isLoading || localIsLoading}
+            />
         </section>
     );
 }
@@ -167,7 +238,7 @@ function PlaylistsView({ playlists, isLoading }) {
                 </div>
             ) : (
                 <div>
-                    {playlists.items.map((item, index) => (
+                    {playlists?.items?.map((item, index) => (
                         <Playlist playlistData={item} key={index} />
                     ))}
 
@@ -194,7 +265,7 @@ function RecentSongsView({ recentSongs, isLoading }) {
             ) : (
                 <>
                     <div className="history-container">
-                        {recentSongs.items.map((item, index) => (
+                        {recentSongs?.items?.map((item, index) => (
                             <SongCard songData={item} key={index} />
                         ))}
                     </div>
@@ -224,56 +295,11 @@ function Playlist({ isLoading, playlistData }) {
         return (
             <div className="playlist-container">
                 <div className="img-container">
-                    <img src={playlistData.images[0].url} />
+                    <img src={playlistData?.images?.[0]?.url} />
                 </div>
                 <p>{playlistData.name}</p>
             </div>
         );
     }
     return <></>;
-}
-
-function SongCard({ name, img, isLoading, songData }) {
-    // console.log(songData);
-    // if (songData) console.log(songData.name);
-    function ArtistsToString() {
-        const artists = songData.track.artists;
-        if (!artists) return "";
-
-        let artistsString = artists[0].name;
-        if (artists.length > 1) {
-            for (let i = 1; i < artists.length; i++) {
-                const artist = artists[i];
-                // console.log(artist);
-                artistsString += `, ${artist.name}`;
-            }
-        }
-        return artistsString;
-    }
-
-    if (isLoading) {
-        return (
-            <div className="song-container">
-                <div className="img-container loading">
-                    {/* <img src={img} /> */}
-                </div>
-                <div className="song-info">
-                    <p className="text loading" style={{ width: "80%" }}></p>
-                    <p className="text loading"></p>
-                </div>
-            </div>
-        );
-    } else {
-        return (
-            <div className="song-container">
-                <div className="img-container">
-                    <img src={songData.track.album.images[0].url} />
-                </div>
-                <div className="song-info">
-                    <p>{songData.track.name}</p>
-                    <p>{ArtistsToString()}</p>
-                </div>
-            </div>
-        );
-    }
 }
