@@ -31,14 +31,21 @@ export default function UserProfileScreen({ myProfile }) {
     const [recentTracks, setRecentTracks] = useState({});
 
     const { spotifyId } = useParams();
-    console.log(spotifyId);
+    // console.log(spotifyId);
+
+    async function getRecentTracks(userId) {
+        const results = (
+            await axios.get(`${URL}/accounts/songs/recents?spotifyId={userId}`)
+        ).data;
+        // console.log(results);
+    }
 
     async function getMyData() {
         try {
             // const response = await mySpotifyApi.getMe();
             const userData = await mySpotifyApi.getMe();
             const userId = userData.body.id;
-            console.log(userId);
+            // console.log(userId);
             const playlists = await mySpotifyApi.getUserPlaylists(userId);
             const recents = await mySpotifyApi.getMyRecentlyPlayedTracks();
             // console.log(recents.body);
@@ -46,10 +53,10 @@ export default function UserProfileScreen({ myProfile }) {
             // console.log(playlists.body);
             setUserData(userData.body);
             setPlaylists(playlists.body);
-            setRecentTracks(recents.body);
+            // setRecentTracks(recents.body);
             setIsLoading(false);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -61,14 +68,14 @@ export default function UserProfileScreen({ myProfile }) {
                 .body;
             // const recents = await mySpotifyApi.getMyRecentlyPlayedTracks();
             // console.log(recents.body);
-            console.log(userData);
-            console.log(playlists);
+            // console.log(userData);
+            // console.log(playlists);
             setUserData(userData);
             setPlaylists(playlists);
             // setRecentTracks(recents.body);
             setIsLoading(false);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -191,10 +198,10 @@ function CurrentlyPlayingView({ isLoading, spotifyId, myProfile }) {
                 `${URL}/accounts/songs/current-playing?spotifyId=${idToUse}`
             )
         ).data;
-        console.log(songId);
+        // console.log(songId);
 
         const songData = (await mySpotifyApi.getTrack(songId)).body;
-        console.log(songData);
+        // console.log(songData);
         setSongData(songData);
         setLocalIsLoading(false);
     }
@@ -245,7 +252,39 @@ function PlaylistsView({ playlists, isLoading }) {
     );
 }
 
-function RecentSongsView({ recentSongs, isLoading }) {
+function RecentSongsView({ isLoading, spotifyId, myProfile }) {
+    const localSpotifyId = useSelector((state) => state.appConfig.spotifyId);
+    const [songsData, setSongsData] = useState({});
+    const [localIsLoading, setLocalIsLoading] = useState(true);
+
+    async function getRecentTracks() {
+        const idToUse = myProfile ? localSpotifyId : spotifyId;
+        const results = (
+            await axios.get(`${URL}/accounts/songs/recents?spotifyId=${idToUse}`)
+        ).data;
+        // console.log(results);
+
+        const songsData = [];
+        for (let index = 0; index < results.length; index++) {
+            const songId = results[index].songId;
+            const songData = (await mySpotifyApi.getTrack(songId)).body;
+            songsData.push(songData);
+        }
+
+        // console.log(songsData);
+        setSongsData(songsData);
+        setLocalIsLoading(false);
+    }
+
+    useEffect(() => {
+        getRecentTracks();
+        const interval = setInterval(() => {
+            getRecentTracks();
+        }, refreshRateMS);
+
+        return () => clearInterval(interval);
+    }, []);
+
     // console.log(recentSongs);
     return (
         <section className="recents">
@@ -261,11 +300,15 @@ function RecentSongsView({ recentSongs, isLoading }) {
             ) : (
                 <>
                     <div className="history-container">
-                        {recentSongs?.items?.map((item, index) => (
-                            <SongCard songData={item} key={index} />
+                        {songsData?.map((item, index) => (
+                            <SongCard
+                                songData={item}
+                                key={index}
+                                isLoading={isLoading || localIsLoading}
+                            />
                         ))}
                     </div>
-                    <div style={{ textAlign: "right" }}>Load more...</div>
+                    {/* <div style={{ textAlign: "right" }}>Load more...</div> */}
                 </>
             )}
         </section>

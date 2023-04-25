@@ -9,29 +9,32 @@ import { mySpotifyApi } from "App";
 import { ArtistsToString } from "../../utils";
 import DefaultProfilePicture from "../../../src/assets/images/default-profile-photo.jpg";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { showAddToPlaylist } from "features/appConfig/appConfigSlice";
 
 function UserCard({ user, parentIsLoading }) {
     const [songData, setSongData] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isLiked, setIsLiked] = useState(false);
     const [gotData, setGotData] = useState(false);
+    const dispatch = useDispatch();
 
     async function getSongData() {
-        console.log("Getting song data...");
+        // console.log("Getting song data...");
         const songId = user?.currentSong?.song?.songId;
-        console.log(songId);
+        // console.log(songId);
         if (!songId) {
             setGotData(true);
             return;
         }
 
         const result = (await mySpotifyApi.getTrack(songId)).body;
-        console.log(result);
+        // console.log(result);
         setSongData(result);
 
         const isLiked = (await mySpotifyApi.containsMySavedTracks([songId]))
             .body[0];
-        console.log(isLiked);
+        // console.log(isLiked);
         setIsLiked(isLiked);
         setIsLoading(false);
         setGotData(true);
@@ -157,21 +160,29 @@ function UserCard({ user, parentIsLoading }) {
                             />
                         </div>
                         <div className="song-detail">
-                            <Link to={`../details/${user?.currentSong?.song?.songId}`}>
-                            {/* <div className="button-song"> */}
-                            <p
-                                className="user-card-title"
-                                style={{ margin: "0 10px", fontSize: "1.8rem" }}
+                            <Link
+                                to={`../details/${user?.currentSong?.song?.songId}`}
                             >
-                                {songData?.name}
-                            </p>
-                            <p
-                                className="user-card-artist"
-                                style={{ margin: "0 10px", fontSize: "1rem" }}
-                            >
-                                {ArtistsToString(songData.artists)}
-                            </p>
-                            {/* </div> */}
+                                {/* <div className="button-song"> */}
+                                <p
+                                    className="user-card-title"
+                                    style={{
+                                        margin: "0 10px",
+                                        fontSize: "1.8rem",
+                                    }}
+                                >
+                                    {songData?.name}
+                                </p>
+                                <p
+                                    className="user-card-artist"
+                                    style={{
+                                        margin: "0 10px",
+                                        fontSize: "1rem",
+                                    }}
+                                >
+                                    {ArtistsToString(songData.artists)}
+                                </p>
+                                {/* </div> */}
                             </Link>
                         </div>
                     </div>
@@ -190,11 +201,16 @@ function UserCard({ user, parentIsLoading }) {
                                 />
                             )}
                         </div>
-                        <div>
+                        <div
+                            onClick={() =>
+                                dispatch(
+                                    showAddToPlaylist(
+                                        user?.currentSong?.song?.songId
+                                    )
+                                )
+                            }
+                        >
                             <MdPlaylistAdd className="interactable" />
-                        </div>
-                        <div>
-                            <MdOutlineQueue className="interactable" />
                         </div>
                     </div>
                 </div>

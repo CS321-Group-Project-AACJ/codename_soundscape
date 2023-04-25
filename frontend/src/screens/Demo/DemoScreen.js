@@ -13,10 +13,10 @@ export default function DemoScreen() {
     async function fetchData() {
         try {
             const result = await axios.get(`${URL}/test`);
-            console.log(result);
+            // console.log(result);
             setData(result.data);
         } catch (error) {
-            console.log("There was an error fetching data");
+            // console.log("There was an error fetching data");
         }
     }
 
@@ -25,9 +25,9 @@ export default function DemoScreen() {
             const result = await axios.post(`${URL}/accounts/test`, {
                 firstname: firstname,
             });
-            console.log(result);
+            // console.log(result);
         } catch (error) {
-            console.log("There was an error fetching data");
+            // console.log("There was an error fetching data");
         }
     }
 

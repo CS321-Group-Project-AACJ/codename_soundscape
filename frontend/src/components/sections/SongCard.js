@@ -8,12 +8,15 @@ import { MdOutlineQueue } from "react-icons/md";
 import { mySpotifyApi } from "App";
 import { Link } from "react-router-dom";
 import "./SongCard.css";
+import { useDispatch } from "react-redux";
+import { showAddToPlaylist } from "features/appConfig/appConfigSlice";
 
 export default function SongCard({ songData, isLoading }) {
     // console.log(songData);
     // if (songData) console.log(songData.name);
     // console.log(songData);
     const [isLiked, setIsLiked] = useState(false);
+    const dispatch = useDispatch();
 
     async function toggleLike() {
         const prevValue = isLiked;
@@ -61,25 +64,24 @@ export default function SongCard({ songData, isLoading }) {
     } else {
         return (
             <div className="song-container">
-                
-                    <div className="img-container">
-                        <Link to={`../details/${songData?.id}`}>
-                            <img
-                                src={
-                                    songData?.album?.images?.[0]?.url || (
-                                        <ImgPlaceholder />
-                                    )
-                                }
-                            />
-                        </Link>
-                    </div>
-                    <div className="song-info">
-                        <Link to={`../details/${songData?.id}`}>
-                            <p>{songData?.name}</p>
-                            <p>{ArtistsToString(songData?.artists)}</p>
-                        </Link>
-                    </div>
-                
+                <div className="img-container">
+                    <Link to={`../details/${songData?.id}`}>
+                        <img
+                            src={
+                                songData?.album?.images?.[0]?.url || (
+                                    <ImgPlaceholder />
+                                )
+                            }
+                        />
+                    </Link>
+                </div>
+                <div className="song-info">
+                    <Link to={`../details/${songData?.id}`}>
+                        <p>{songData?.name}</p>
+                        <p>{ArtistsToString(songData?.artists)}</p>
+                    </Link>
+                </div>
+
                 <div className="interactions">
                     <div>
                         {isLiked ? (
@@ -95,11 +97,12 @@ export default function SongCard({ songData, isLoading }) {
                             />
                         )}
                     </div>
-                    <div>
+                    <div
+                        onClick={() =>
+                            dispatch(showAddToPlaylist(songData?.id))
+                        }
+                    >
                         <MdPlaylistAdd className="interactable" />
-                    </div>
-                    <div>
-                        <MdOutlineQueue className="interactable" />
                     </div>
                 </div>
             </div>

@@ -68,7 +68,7 @@ const accountSchema = new Schema({
         updatedAt: { type: Date, default: () => Date.now() },
     },
     recentSongs: {
-        songs: [{ type: songSchema }],
+        songIds: [{ type: songSchema }],
         updatedAt: { type: Date, default: () => Date.now() },
     },
 });

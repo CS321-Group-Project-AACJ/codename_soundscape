@@ -20,7 +20,8 @@ router.post("/register", async (req, res, next) => {
         const { accessToken } = req.body;
         // console.log(accessToken);
         if (!accessToken) {
-            console.log("handle error here");
+            // console.log("handle error here");
+            throw new Error("No access token provided");
         }
         spotifyApi.setAccessToken(accessToken);
 
@@ -38,7 +39,7 @@ router.post("/register", async (req, res, next) => {
             return;
         }
         const { longitude, latitude } = req.body;
-        console.log(longitude);
+        // console.log(longitude);
 
         const newLocation = await Location({
             name: "Default",
@@ -129,6 +130,38 @@ router.patch("/songs/current-playing", async (req, res, next) => {
     }
 });
 
+router.patch("/songs/recents", async (req, res, next) => {
+    try {
+        const { spotifyId, songIds } = req.body;
+        console.log(`Spotify Id: ${spotifyId}`);
+        console.log(songIds);
+
+        // const newCurrentSong = await Song({
+        //     songId,
+        // });
+        // console.log(newCurrentSong);
+
+        const songArr = songIds.map((songId) => {
+            return Song({
+                songId,
+            });
+        });
+
+        await Account.updateOne(
+            { spotifyId: spotifyId },
+            {
+                "recentSongs.songIds": songArr,
+                "recentSongs.updatedAt": Date.now(),
+            }
+        );
+        res.json("Updated current song");
+    } catch (error) {
+        console.log("We had trouble updating your currently playing song");
+        error.status = 500;
+        next(error);
+    }
+});
+
 router.get("/songs/current-playing", async (req, res, next) => {
     try {
         const { spotifyId } = req.query;
@@ -144,6 +177,24 @@ router.get("/songs/current-playing", async (req, res, next) => {
         next(error);
     }
 });
+
+router.get("/songs/recents", async (req, res, next) => {
+    try {
+        const { spotifyId } = req.query;
+        // console.log(`Spotify Id: ${spotifyId}`);
+
+        const user = await Account.findOne({ spotifyId: spotifyId });
+        // console.log(user);
+        const { songIds } = user.recentSongs;
+        res.json(songIds);
+    } catch (error) {
+        console.log("We had trouble getting your currently playing song");
+        error.status = 500;
+        next(error);
+    }
+});
+
+
 
 router.get("/home", async (req, res, next) => {
     try {

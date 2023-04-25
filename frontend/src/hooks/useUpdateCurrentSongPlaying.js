@@ -7,20 +7,19 @@ import { refreshRateMS } from "utils";
 
 export default function useUpdateCurrentSongPlaying() {
     const spotifyId = useSelector((state) => state.appConfig.spotifyId);
-    console.log(spotifyId);
 
     async function getMyCurrentlyPlayingSong() {
         try {
-            console.log("Getting currently playing song...");
+            // console.log("Getting currently playing song...");
             const result = (await mySpotifyApi.getMyCurrentPlaybackState()).body;
-            console.log(result);
+            // console.log(result);
             if (!result) return;
 
             const data = result.item;
             const songData = {
                 songId: data.id,
             };
-            console.log(songData);
+            // console.log(songData);
 
             const response = await axios.patch(
                 `${URL}/accounts/songs/current-playing`,
@@ -38,7 +37,7 @@ export default function useUpdateCurrentSongPlaying() {
         if (!spotifyId) return;
 
         const interval = setInterval(() => {
-            console.log("I am running...");
+            // console.log("I am running...");
             getMyCurrentlyPlayingSong();
         }, refreshRateMS);
 

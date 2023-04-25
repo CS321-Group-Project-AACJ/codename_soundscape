@@ -12,9 +12,9 @@ import { mySpotifyApi } from "App";
 
 async function getSongData(songId) {
     try {
-      console.log(`Getting song data for ${songId}...`);
+    //   console.log(`Getting song data for ${songId}...`);
       const result = (await mySpotifyApi.getTrack(songId)).body;
-      console.log(result);
+    //   console.log(result);
       if (!result) return;
 
       const songData = {
@@ -27,7 +27,7 @@ async function getSongData(songId) {
         track_number: result.track_number,
       };
       
-      console.log(songData);
+    //   console.log(songData);
   
       return songData;
     } catch (error) {
@@ -38,7 +38,7 @@ async function getSongData(songId) {
 
   async function getArtistData(artistIds) {
     try {
-      console.log(`Getting artist data for ${artistIds}`);
+    //   console.log(`Getting artist data for ${artistIds}`);
       const artistData = [];
   
       for (let i = 0; i < artistIds.length; i++) {
@@ -71,11 +71,11 @@ export default function DetailsScreen() {
     useEffect(() => {
         async function fetchSongDetails() {
             const songDetails = await getSongData(songId);
-            console.log(songDetails);
+            // console.log(songDetails);
             setSong(songDetails);
             
             const artistDetails = await getArtistData(songDetails.artistIds);
-            console.log("Artist Detail:",artistDetails);
+            // console.log("Artist Detail:",artistDetails);
             setArtistData(artistDetails);
         }
         fetchSongDetails();
@@ -115,7 +115,6 @@ export default function DetailsScreen() {
                         text="Open In Spotify"
                         style={{ alignItems: "center", width: 400, height: 65 }}
                         type="PRIMARY"
-                        handleFunction={() => console.log()}
                         />
                     </div>
                 </div>
@@ -175,7 +174,7 @@ function Album({ name, img }) {
 
 function ArtistCard1({ artists = [], img }) {
     function ArtistsToString() {
-        console.log("artists:",artists);
+        // console.log("artists:",artists);
         if (artists.length == 0)return;
         let artistsString = artists[0];
         if (artists.length > 1) {
@@ -184,7 +183,7 @@ function ArtistCard1({ artists = [], img }) {
                 artistsString += `, ${artist}`;
             }
         }
-        console.log("artists:",artistsString);
+        // console.log("artists:",artistsString);
         return artistsString;
     }
 

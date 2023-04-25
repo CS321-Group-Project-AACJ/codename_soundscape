@@ -33,7 +33,7 @@ export default function SearchScreen() {
                     `${URL}/accounts/search?searchText=${searchText}`
                 )
             ).data;
-            console.log(results);
+            // console.log(results);
             setUsers(results);
             // throw new Error();
         } catch (error) {
@@ -46,7 +46,7 @@ export default function SearchScreen() {
     async function SearchTracks() {
         try {
             const results = (await mySpotifyApi.searchTracks(searchText)).body;
-            console.log(results);
+            // console.log(results);
             setTracks(results);
         } catch (error) {
             console.error("There was an error getting tracks");
@@ -59,7 +59,7 @@ export default function SearchScreen() {
         try {
             const results = (await mySpotifyApi.searchPlaylists(searchText))
                 .body;
-            console.log(results);
+            // console.log(results);
             setPlaylists(results);
         } catch (error) {
             console.error("There was an error getting playlists");
