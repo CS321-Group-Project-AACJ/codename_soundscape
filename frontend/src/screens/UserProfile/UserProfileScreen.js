@@ -254,7 +254,7 @@ function PlaylistsView({ playlists, isLoading }) {
 
 function RecentSongsView({ isLoading, spotifyId, myProfile }) {
     const localSpotifyId = useSelector((state) => state.appConfig.spotifyId);
-    const [songsData, setSongsData] = useState({});
+    const [songsData, setSongsData] = useState([]);
     const [localIsLoading, setLocalIsLoading] = useState(true);
 
     async function getRecentTracks() {
