@@ -16,7 +16,7 @@ export default function LoginScreen() {
             <div className="login-container">
                 <div className="title">
                     <h1>Codename Soundscape</h1>
-                    <p>Greeting message goes here!</p>
+                    <p>Welcome!</p>
                 </div>
                 <div className="interactables">
                     <a href={AUTH_URL} style={{ textDecoration: "none" }}>
