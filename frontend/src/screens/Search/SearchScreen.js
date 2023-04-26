@@ -70,9 +70,9 @@ export default function SearchScreen() {
     return (
         <main className="search">
             <div className="search">
-                <h1>Search</h1>
+                <h1>Search for users or Songs</h1>
                 {/* <form> */}
-                <label htmlFor="search">Search:</label>
+                <label htmlFor="search"><b>Search</b>:</label>
                 <input
                     type="text"
                     id="search"
