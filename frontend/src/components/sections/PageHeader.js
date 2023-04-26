@@ -11,7 +11,7 @@ export default function PageHeader({pageName}) {
               <MdArrowBack />
           </div> */}
           <div
-              style={{fontSize: "1.5rem", fontWeight: 500 }}
+              style={{ fontSize: "1.5rem", fontWeight: "bold" }}
           >
               {pageName || "Default Page Name"}
           </div>
