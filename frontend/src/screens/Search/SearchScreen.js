@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { setModalText, showModal } from "features/appConfig/appConfigSlice";
 import { mySpotifyApi } from "App";
 import SongCard from "components/sections/SongCard";
-
 export default function SearchScreen() {
     const [searchText, setSearchText] = useState("");
     const [loading, setIsLoading] = useState(true);

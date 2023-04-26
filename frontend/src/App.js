@@ -84,7 +84,7 @@ function AppComponent({ code }) {
         <div className="app">
             {/* <p>{code}</p> */}
             <Nav />
-            <PageHeader />
+            {/* <PageHeader /> */}
             <MessageModal />
             <AddToPlaylist />
 
