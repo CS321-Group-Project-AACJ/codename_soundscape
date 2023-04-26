@@ -14,8 +14,8 @@ router.post("/register", async (req, res, next) => {
     try {
         const spotifyApi = new SpotifyWebApi({
             redirectUri: "http://localhost:3000",
-            clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
-            clientSecret: "8365399e3ef94b52bde4654b5d003dc4",
+            clientId: "f4b4a8cd830e49418ce542a5606399f4",
+            clientSecret: "b3c6941d9e514411b4b3a0a419070168",
         });
         const { accessToken } = req.body;
         // console.log(accessToken);

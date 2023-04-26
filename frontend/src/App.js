@@ -23,7 +23,7 @@ import AddToPlaylist from "components/sections/AddToPlaylist";
 
 const code = new URLSearchParams(window.location.search).get("code");
 export const mySpotifyApi = new SpotifyWebApi({
-    clientId: "cdd8517c97db4dca8fa03c9bfa9ef559",
+    clientId: "f4b4a8cd830e49418ce542a5606399f4",
 });
 
 function App() {
