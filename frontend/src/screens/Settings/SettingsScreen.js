@@ -1,7 +1,7 @@
 import React from "react";
 import "./SettingsScreen.css";
 import CustomButton from "components/ui/CustomButton";
-
+import PageHeader from "components/sections/PageHeader";
 export default function SettingsScreen() {
     function handleLogOut() {
         localStorage.clear();
@@ -10,7 +10,8 @@ export default function SettingsScreen() {
 
     return (
         <>
-            <div>Settings Screen</div>
+           
+            {<PageHeader pageName={"Settings"}/>}
             <CustomButton text={"Log Out"} handleFunction={handleLogOut} />
         </>
     );

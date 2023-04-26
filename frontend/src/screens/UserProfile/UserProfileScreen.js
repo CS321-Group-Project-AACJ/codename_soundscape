@@ -22,7 +22,7 @@ import URL from "data/URL";
 import SongCard from "components/sections/SongCard";
 import { refreshRateMS } from "utils";
 import { useParams } from "react-router-dom";
-
+import PageHeader from "components/sections/PageHeader";
 export default function UserProfileScreen({ myProfile }) {
     const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState({});
@@ -89,6 +89,7 @@ export default function UserProfileScreen({ myProfile }) {
 
     return (
         <main className="user-profile">
+            {<PageHeader pageName={"Profile"}/>}
             <UserProfileHeaderView userData={userData} isLoading={isLoading} />
             <UserProfileBodyView
                 playlists={playlists}
