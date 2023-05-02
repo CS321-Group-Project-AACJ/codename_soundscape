@@ -199,6 +199,7 @@ router.get("/songs/recents", async (req, res, next) => {
 router.get("/home", async (req, res, next) => {
     try {
         const { spotifyId, maxDistance } = req.query;
+        console.log(spotifyId);
         const myAccount = await Account.findOne({ spotifyId: spotifyId });
         console.log(myAccount);
 

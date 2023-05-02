@@ -24,7 +24,7 @@ function UserList() {
 
     useEffect(() => {
         getUsers();
-    }, []);
+    }, [spotifyId]);
 
     return (
         <div className="user-list">
