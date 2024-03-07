@@ -1,6 +1,7 @@
 # Codename SoundScape - web app
 
 [Live link](https://google.com/)
+[Video demo link](https://youtu.be/QLj7s38GtDA)
 
 A simple web app created using the MERN stack (MongoDB, Express.js, React, Node.js) for GMU CS 321's group semester project. The goal of this project is to
 
